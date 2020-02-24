@@ -22,7 +22,8 @@ const OwnerList = () => {
   // Finally we use map() to "loop over" the animals array to show a list of animal cards
   return (
     <div className="container-cards">
-      {owners.map(employee => <OwnerCard />)}
+      {owners.map(owner => 
+        <OwnerCard key={owner.id} owner={owner}/>)}
     </div>
   );
 };

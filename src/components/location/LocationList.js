@@ -4,7 +4,7 @@ import LocationManager from '../../modules/LocationManager';
 
 const LocationList = () => {
   // The initial state is an empty array
-  const [employees, setLocation] = useState([]);
+  const [locations, setLocation] = useState([]);
 
   const getLocation = () => {
     // After the data comes back from the API, we
@@ -22,7 +22,8 @@ const LocationList = () => {
   // Finally we use map() to "loop over" the animals array to show a list of animal cards
   return (
     <div className="container-cards">
-      {employees.map(location => <LocationCard />)}
+      {locations.map(location => 
+        <LocationCard key={location.id} location={location}/>)}
     </div>
   );
 };
