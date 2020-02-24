@@ -24,8 +24,15 @@ const ApplicationViews = () => {
         exact path="/animals" render={(props) => {
         return <AnimalList />
       }} />
-      <Route path="/animals/:animalId(\d+)" render={(props) => {
-        return <AnimalDetail animalId={parseInt(props.match.params.animalId)}/>
+      <Route 
+        path="/animals/:animalId(\d+)" 
+        render={(props) => {
+          return (
+            <AnimalDetail 
+              animalId={parseInt(props.match.params.animalId)}
+              {...props}
+            />
+          );
       }} />
       <Route 
         exact path="/locations" render={props => {
