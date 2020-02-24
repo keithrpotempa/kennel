@@ -68,8 +68,15 @@ const ApplicationViews = () => {
           return <EmployeeList />;
         }}
       />
-      <Route path="/employees/:employeeId(\d+)" render={(props) => {
-        return <EmployeeDetail employeeId={parseInt(props.match.params.employeeId)}/>
+      <Route 
+        path="/employees/:employeeId(\d+)" 
+        render={(props) => {
+          return (
+            <EmployeeDetail 
+              employeeId={parseInt(props.match.params.employeeId)}
+              {...props}
+            />
+          );
       }} />
     </React.Fragment>
   );

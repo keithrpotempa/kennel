@@ -4,17 +4,25 @@ import './EmployeeDetail.css'
 
 const EmployeeDetail = props => {
   const [employee, setEmployee] = useState({ name: "", role: "" });
+  const [isLoading, setIsLoading] = useState({isLoading: true})
 
   useEffect(() => {
-    //get(id) from AnimalManager and hang on to the data; put it into state
     EmployeeManager.get(props.employeeId)
       .then(employee => {
         setEmployee({
           name: employee.name,
           role: employee.role
         });
+        setIsLoading(false);
       });
   }, [props.employeeId]);
+
+  const handleDelete = () => {
+    setIsLoading(true);
+    EmployeeManager.delete(props.employeeId).then(() => 
+      props.history.push("/employees")
+    );
+  };
 
   return (
     <div className="card">
@@ -22,6 +30,9 @@ const EmployeeDetail = props => {
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{employee.name}</span></h3>
         <p>Role: {employee.role}</p>
       </div>
+      <button type="button" disabled={isLoading} onClick={handleDelete}>
+        Fire Employee
+      </button>
     </div>
   );
 }
