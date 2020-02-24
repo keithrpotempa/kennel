@@ -4,6 +4,7 @@ import Home from "./home/Home";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail"
 import OwnerList from "./owner/OwnerList"
+import OwnerDetail from "./owner/OwnerDetail"
 import EmployeeList from "./employee/EmployeeList"
 import LocationList from "./location/LocationList"
 import LocationDetail from "./location/LocationDetail"
@@ -33,14 +34,15 @@ const ApplicationViews = () => {
         return <LocationDetail locationId={parseInt(props.match.params.locationId)}/>
       }} />
       <Route
-        path="/owners"
-        render={props => {
+        exact path="/owners" render={props => {
           return <OwnerList />;
         }}
       />
+      <Route path="/owners/:ownerId(\d+)" render={(props) => {
+        return <OwnerDetail ownerId={parseInt(props.match.params.ownerId)}/>
+      }} />
 			<Route
-        path="/employees"
-        render={props => {
+        exact path="/employees" render={props => {
           return <EmployeeList />;
         }}
       />
