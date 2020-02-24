@@ -38,8 +38,15 @@ const ApplicationViews = () => {
         exact path="/locations" render={props => {
           return <LocationList />;
       }} />
-      <Route path="/locations/:locationId(\d+)" render={(props) => {
-        return <LocationDetail locationId={parseInt(props.match.params.locationId)}/>
+      <Route 
+        path="/locations/:locationId(\d+)" 
+        render={(props) => {
+        return (
+          <LocationDetail 
+            locationId={parseInt(props.match.params.locationId)}
+            {...props}
+          />
+        );
       }} />
       <Route
         exact path="/owners" render={props => {
