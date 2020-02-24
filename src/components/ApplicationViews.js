@@ -41,11 +41,11 @@ const ApplicationViews = () => {
       <Route 
         path="/locations/:locationId(\d+)" 
         render={(props) => {
-        return (
-          <LocationDetail 
-            locationId={parseInt(props.match.params.locationId)}
-            {...props}
-          />
+          return (
+            <LocationDetail 
+              locationId={parseInt(props.match.params.locationId)}
+              {...props}
+            />
         );
       }} />
       <Route
@@ -53,8 +53,15 @@ const ApplicationViews = () => {
           return <OwnerList />;
         }}
       />
-      <Route path="/owners/:ownerId(\d+)" render={(props) => {
-        return <OwnerDetail ownerId={parseInt(props.match.params.ownerId)}/>
+      <Route 
+        path="/owners/:ownerId(\d+)" 
+        render={(props) => {
+          return (
+            <OwnerDetail 
+              ownerId={parseInt(props.match.params.ownerId)}
+              {...props}
+            />
+          );
       }} />
 			<Route
         exact path="/employees" render={props => {
