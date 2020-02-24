@@ -6,6 +6,7 @@ import AnimalDetail from "./animal/AnimalDetail"
 import OwnerList from "./owner/OwnerList"
 import OwnerDetail from "./owner/OwnerDetail"
 import EmployeeList from "./employee/EmployeeList"
+import EmployeeDetail from "./employee/EmployeeDetail"
 import LocationList from "./location/LocationList"
 import LocationDetail from "./location/LocationDetail"
 
@@ -46,6 +47,9 @@ const ApplicationViews = () => {
           return <EmployeeList />;
         }}
       />
+      <Route path="/employees/:employeeId(\d+)" render={(props) => {
+        return <EmployeeDetail employeeId={parseInt(props.match.params.employeeId)}/>
+      }} />
     </React.Fragment>
   );
 };
