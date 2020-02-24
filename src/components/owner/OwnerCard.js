@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"
 
 const OwnerCard = props => {
   return (
@@ -11,6 +12,9 @@ const OwnerCard = props => {
         </h3>
         <p>Phone Number: {props.owner.phoneNumber}</p>
         <button type="button" onClick={() => props.deleteOwner(props.owner.id)}>Remove Owner</button>
+        <Link to={`/owners/${props.owner.id}`}>
+          <button>Details</button>
+        </Link>
       </div>
     </div>
   );
