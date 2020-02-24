@@ -24,31 +24,59 @@ const ApplicationViews = () => {
         exact path="/animals" render={(props) => {
         return <AnimalList />
       }} />
-      <Route path="/animals/:animalId(\d+)" render={(props) => {
-        return <AnimalDetail animalId={parseInt(props.match.params.animalId)}/>
+      <Route 
+        path="/animals/:animalId(\d+)" 
+        render={(props) => {
+          return (
+            <AnimalDetail 
+              animalId={parseInt(props.match.params.animalId)}
+              {...props}
+            />
+          );
       }} />
       <Route 
         exact path="/locations" render={props => {
           return <LocationList />;
       }} />
-      <Route path="/locations/:locationId(\d+)" render={(props) => {
-        return <LocationDetail locationId={parseInt(props.match.params.locationId)}/>
+      <Route 
+        path="/locations/:locationId(\d+)" 
+        render={(props) => {
+          return (
+            <LocationDetail 
+              locationId={parseInt(props.match.params.locationId)}
+              {...props}
+            />
+        );
       }} />
       <Route
         exact path="/owners" render={props => {
           return <OwnerList />;
         }}
       />
-      <Route path="/owners/:ownerId(\d+)" render={(props) => {
-        return <OwnerDetail ownerId={parseInt(props.match.params.ownerId)}/>
+      <Route 
+        path="/owners/:ownerId(\d+)" 
+        render={(props) => {
+          return (
+            <OwnerDetail 
+              ownerId={parseInt(props.match.params.ownerId)}
+              {...props}
+            />
+          );
       }} />
 			<Route
         exact path="/employees" render={props => {
           return <EmployeeList />;
         }}
       />
-      <Route path="/employees/:employeeId(\d+)" render={(props) => {
-        return <EmployeeDetail employeeId={parseInt(props.match.params.employeeId)}/>
+      <Route 
+        path="/employees/:employeeId(\d+)" 
+        render={(props) => {
+          return (
+            <EmployeeDetail 
+              employeeId={parseInt(props.match.params.employeeId)}
+              {...props}
+            />
+          );
       }} />
     </React.Fragment>
   );
