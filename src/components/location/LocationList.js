@@ -3,27 +3,31 @@ import LocationCard from './LocationCard';
 import LocationManager from '../../modules/LocationManager';
 
 const LocationList = () => {
-  // The initial state is an empty array
   const [locations, setLocation] = useState([]);
 
   const getLocation = () => {
-    // After the data comes back from the API, we
-    //  use the setAnimals function to update state
     return LocationManager.getAll().then(locationFromAPI => {
       setLocation(locationFromAPI)
     });
   };
 
-  // got the animals from the API on the component's first render
   useEffect(() => {
     getLocation();
   }, []);
 
-  // Finally we use map() to "loop over" the animals array to show a list of animal cards
+  const deleteLocation = id => {
+    LocationManager.delete(id)
+      .then(() => LocationManager.getAll().then(setLocation));
+  };
+
   return (
     <div className="container-cards">
       {locations.map(location => 
-        <LocationCard key={location.id} location={location}/>)}
+        <LocationCard 
+        key={location.id} 
+        location={location}
+        deleteLocation={deleteLocation}/>
+      )}
     </div>
   );
 };
