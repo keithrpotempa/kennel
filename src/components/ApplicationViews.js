@@ -1,6 +1,7 @@
 import { Route } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
+
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm"
@@ -15,6 +16,7 @@ import EmployeeForm from "./employee/EmployeeForm"
 
 import LocationList from "./location/LocationList"
 import LocationDetail from "./location/LocationDetail"
+import LocationForm from "./location/LocationForm"
 
 const ApplicationViews = () => {
   return (
@@ -45,8 +47,13 @@ const ApplicationViews = () => {
       }} />
       <Route 
         exact path="/locations" render={props => {
-          return <LocationList />;
+          return <LocationList {...props}/>;
       }} />
+      <Route 
+        path="/locations/new" render={(props) => {
+          return <LocationForm {...props} />
+        }}
+      />
       <Route 
         path="/locations/:locationId(\d+)" 
         render={(props) => {
