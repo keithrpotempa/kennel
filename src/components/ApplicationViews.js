@@ -7,6 +7,7 @@ import AnimalForm from "./animal/AnimalForm"
 
 import OwnerList from "./owner/OwnerList"
 import OwnerDetail from "./owner/OwnerDetail"
+import OwnerForm from "./owner/OwnerForm"
 
 import EmployeeList from "./employee/EmployeeList"
 import EmployeeDetail from "./employee/EmployeeDetail"
@@ -58,7 +59,12 @@ const ApplicationViews = () => {
       }} />
       <Route
         exact path="/owners" render={props => {
-          return <OwnerList />;
+          return <OwnerList {...props}/>;
+        }}
+      />
+      <Route 
+        path="/owners/new" render={props => {
+          return <OwnerForm {...props}/>
         }}
       />
       <Route 
