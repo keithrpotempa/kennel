@@ -2,7 +2,8 @@ import { Route } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
 import AnimalList from "./animal/AnimalList";
-import AnimalDetail from "./animal/AnimalDetail"
+import AnimalDetail from "./animal/AnimalDetail";
+import AnimalForm from "./animal/AnimalForm"
 import OwnerList from "./owner/OwnerList"
 import OwnerDetail from "./owner/OwnerDetail"
 import EmployeeList from "./employee/EmployeeList"
@@ -22,7 +23,10 @@ const ApplicationViews = () => {
       />
       <Route 
         exact path="/animals" render={(props) => {
-        return <AnimalList />
+        return <AnimalList {...props}/>
+      }} />
+      <Route path="/animals/new" render={(props) => {
+        return <AnimalForm {...props} />
       }} />
       <Route 
         path="/animals/:animalId(\d+)" 
