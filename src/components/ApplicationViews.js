@@ -1,14 +1,22 @@
 import { Route } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
+
 import AnimalList from "./animal/AnimalList";
-import AnimalDetail from "./animal/AnimalDetail"
+import AnimalDetail from "./animal/AnimalDetail";
+import AnimalForm from "./animal/AnimalForm"
+
 import OwnerList from "./owner/OwnerList"
 import OwnerDetail from "./owner/OwnerDetail"
+import OwnerForm from "./owner/OwnerForm"
+
 import EmployeeList from "./employee/EmployeeList"
 import EmployeeDetail from "./employee/EmployeeDetail"
+import EmployeeForm from "./employee/EmployeeForm"
+
 import LocationList from "./location/LocationList"
 import LocationDetail from "./location/LocationDetail"
+import LocationForm from "./location/LocationForm"
 
 const ApplicationViews = () => {
   return (
@@ -22,7 +30,10 @@ const ApplicationViews = () => {
       />
       <Route 
         exact path="/animals" render={(props) => {
-        return <AnimalList />
+        return <AnimalList {...props}/>
+      }} />
+      <Route path="/animals/new" render={(props) => {
+        return <AnimalForm {...props} />
       }} />
       <Route 
         path="/animals/:animalId(\d+)" 
@@ -36,8 +47,13 @@ const ApplicationViews = () => {
       }} />
       <Route 
         exact path="/locations" render={props => {
-          return <LocationList />;
+          return <LocationList {...props}/>;
       }} />
+      <Route 
+        path="/locations/new" render={(props) => {
+          return <LocationForm {...props} />
+        }}
+      />
       <Route 
         path="/locations/:locationId(\d+)" 
         render={(props) => {
@@ -50,7 +66,12 @@ const ApplicationViews = () => {
       }} />
       <Route
         exact path="/owners" render={props => {
-          return <OwnerList />;
+          return <OwnerList {...props}/>;
+        }}
+      />
+      <Route 
+        path="/owners/new" render={props => {
+          return <OwnerForm {...props}/>
         }}
       />
       <Route 
@@ -65,7 +86,12 @@ const ApplicationViews = () => {
       }} />
 			<Route
         exact path="/employees" render={props => {
-          return <EmployeeList />;
+          return <EmployeeList {...props} />;
+        }}
+      />
+      <Route 
+        path="/employees/new" render={(props) => {
+          return <EmployeeForm {...props} />
         }}
       />
       <Route 
