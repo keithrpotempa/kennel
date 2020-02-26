@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
+import "./Owner.css"
 
 const OwnerCard = props => {
   return (
@@ -15,6 +16,12 @@ const OwnerCard = props => {
         <Link to={`/owners/${props.owner.id}`}>
           <button>Details</button>
         </Link>
+        <button
+          type="button"
+          onClick={() => props.history.push(`/owners/${props.owner.id}/edit`)}
+        >
+          Edit
+        </button>
       </div>
     </div>
   );

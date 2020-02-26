@@ -3,21 +3,21 @@ import LocationCard from './LocationCard';
 import LocationManager from '../../modules/LocationManager';
 
 const LocationList = props => {
-  const [locations, setLocation] = useState([]);
+  const [locations, setLocations] = useState([]);
 
-  const getLocation = () => {
-    return LocationManager.getAll().then(locationFromAPI => {
-      setLocation(locationFromAPI)
+  const getLocations = () => {
+    return LocationManager.getAll().then(locationsFromAPI => {
+      setLocations(locationsFromAPI)
     });
   };
 
   useEffect(() => {
-    getLocation();
+    getLocations();
   }, []);
 
   const deleteLocation = id => {
     LocationManager.delete(id)
-      .then(() => LocationManager.getAll().then(setLocation));
+      .then(() => LocationManager.getAll().then(setLocations));
   };
 
   return (
@@ -32,9 +32,11 @@ const LocationList = props => {
       <div className="container-cards">
         {locations.map(location => 
           <LocationCard 
-          key={location.id} 
-          location={location}
-          deleteLocation={deleteLocation}/>
+            key={location.id} 
+            locationObject={location}
+            deleteLocation={deleteLocation}
+            {...props}
+          />
         )}
       </div>
     </>
