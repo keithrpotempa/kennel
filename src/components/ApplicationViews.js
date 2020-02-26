@@ -6,6 +6,7 @@ import Login from "./auth/Login";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm"
+import AnimalManager from "../modules/AnimalManager"
 
 import OwnerList from "./owner/OwnerList"
 import OwnerDetail from "./owner/OwnerDetail"
@@ -22,6 +23,20 @@ import LocationForm from "./location/LocationForm"
 const ApplicationViews = () => {
   // Check if credentials are in session storage returns true/false
   const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
+  
+  // Check if the AnimalId is valid
+  const isValidId = (id) => AnimalManager.get(id)
+    .then(result => {
+      // See: https://stackoverflow.com/a/32108184
+      if (Object.entries(result).length === 0 && result.constructor === Object) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    })
+      
+  isValidId(1000)
 
   return (
     <React.Fragment>
