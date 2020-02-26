@@ -1,4 +1,4 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect} from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
 import Login from "./auth/Login";
@@ -7,8 +7,6 @@ import FileNotFound from "./FileNotFound";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
-// TODO: if necessary for the AnimalDetails 404 route, uncomment
-// import AnimalManager from "../modules/AnimalManager";
 
 import OwnerList from "./owner/OwnerList";
 import OwnerDetail from "./owner/OwnerDetail";
@@ -25,19 +23,6 @@ import LocationForm from "./location/LocationForm";
 const ApplicationViews = () => {
   // Check if credentials are in session storage returns true/false
   const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
-
-  // TODO: Utilize once route animalId route is working...
-  // Check if the AnimalId is valid
-  // const isValidId = (id) => AnimalManager.get(id)
-  //   .then(result => {
-  //     // See: https://stackoverflow.com/a/32108184
-  //     if (Object.entries(result).length === 0 && result.constructor === Object) {
-  //       return false;
-  //     }
-  //     else {
-  //       return true;
-  //     }
-  //   })
 
   return (
     <React.Fragment>
@@ -64,25 +49,6 @@ const ApplicationViews = () => {
         path="/animals/:animalId(\d+)" 
         render={(props) => {
           const animalId = parseInt(props.match.params.animalId)
-          // FIXME: isValid is not working yet, 
-          // promise approach doesn't work
-          // try state?
-          // const isValid = isValidId(animalId)
-          // return isValid.then(valid => {
-          //   console.log(animalId, "isValidId", valid);
-          //   if (valid) {
-          //     console.log("file found")
-          //     return (
-          //       <AnimalDetail 
-          //         animalId={animalId}
-          //         {...props}
-          //       />
-          //     );
-          //   } else {
-          //     console.log("file not found");
-          //     return <FileNotFound />
-          //   }
-          //           })
           return (
             <AnimalDetail 
               animalId={animalId}
