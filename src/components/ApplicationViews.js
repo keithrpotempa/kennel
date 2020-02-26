@@ -1,26 +1,47 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
+import Login from "./auth/Login";
+import FileNotFound from "./FileNotFound";
 
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
-import AnimalForm from "./animal/AnimalForm"
+import AnimalForm from "./animal/AnimalForm";
+// TODO: if necessary for the AnimalDetails 404 route, uncomment
+// import AnimalManager from "../modules/AnimalManager";
 
-import OwnerList from "./owner/OwnerList"
-import OwnerDetail from "./owner/OwnerDetail"
-import OwnerForm from "./owner/OwnerForm"
+import OwnerList from "./owner/OwnerList";
+import OwnerDetail from "./owner/OwnerDetail";
+import OwnerForm from "./owner/OwnerForm";
 
-import EmployeeList from "./employee/EmployeeList"
-import EmployeeDetail from "./employee/EmployeeDetail"
-import EmployeeForm from "./employee/EmployeeForm"
+import EmployeeList from "./employee/EmployeeList";
+import EmployeeDetail from "./employee/EmployeeDetail";
+import EmployeeForm from "./employee/EmployeeForm";
 
-import LocationList from "./location/LocationList"
-import LocationDetail from "./location/LocationDetail"
-import LocationForm from "./location/LocationForm"
+import LocationList from "./location/LocationList";
+import LocationDetail from "./location/LocationDetail";
+import LocationForm from "./location/LocationForm";
 
 const ApplicationViews = () => {
+  // Check if credentials are in session storage returns true/false
+  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
+
+  // TODO: Utilize once route animalId route is working...
+  // Check if the AnimalId is valid
+  // const isValidId = (id) => AnimalManager.get(id)
+  //   .then(result => {
+  //     // See: https://stackoverflow.com/a/32108184
+  //     if (Object.entries(result).length === 0 && result.constructor === Object) {
+  //       return false;
+  //     }
+  //     else {
+  //       return true;
+  //     }
+  //   })
+
   return (
     <React.Fragment>
+      <Route path="/login" component={Login} />
       <Route
         exact
         path="/"
@@ -30,7 +51,11 @@ const ApplicationViews = () => {
       />
       <Route 
         exact path="/animals" render={(props) => {
-        return <AnimalList {...props}/>
+          if (isAuthenticated()) {
+            return <AnimalList {...props}/>
+          } else {
+            return <Redirect to="/login" />
+          }
       }} />
       <Route path="/animals/new" render={(props) => {
         return <AnimalForm {...props} />
@@ -38,16 +63,41 @@ const ApplicationViews = () => {
       <Route 
         path="/animals/:animalId(\d+)" 
         render={(props) => {
+          const animalId = parseInt(props.match.params.animalId)
+          // FIXME: isValid is not working yet, 
+          // promise approach doesn't work
+          // try state?
+          // const isValid = isValidId(animalId)
+          // return isValid.then(valid => {
+          //   console.log(animalId, "isValidId", valid);
+          //   if (valid) {
+          //     console.log("file found")
+          //     return (
+          //       <AnimalDetail 
+          //         animalId={animalId}
+          //         {...props}
+          //       />
+          //     );
+          //   } else {
+          //     console.log("file not found");
+          //     return <FileNotFound />
+          //   }
+          //           })
           return (
             <AnimalDetail 
-              animalId={parseInt(props.match.params.animalId)}
+              animalId={animalId}
               {...props}
             />
           );
+
       }} />
       <Route 
         exact path="/locations" render={props => {
-          return <LocationList {...props}/>;
+          if (isAuthenticated()) {
+            return <LocationList {...props}/>;
+          } else {
+            return <Redirect to="/login"/>
+          }
       }} />
       <Route 
         path="/locations/new" render={(props) => {
@@ -66,7 +116,11 @@ const ApplicationViews = () => {
       }} />
       <Route
         exact path="/owners" render={props => {
-          return <OwnerList {...props}/>;
+          if (isAuthenticated()) {
+            return <OwnerList {...props}/>;
+          } else {
+            return <Redirect to="/login"/>
+          }
         }}
       />
       <Route 
@@ -86,7 +140,11 @@ const ApplicationViews = () => {
       }} />
 			<Route
         exact path="/employees" render={props => {
-          return <EmployeeList {...props} />;
+          if (isAuthenticated()) {
+            return <EmployeeList {...props} />;
+          } else {
+            return <Redirect to="/login"/>
+          }
         }}
       />
       <Route 
@@ -104,6 +162,12 @@ const ApplicationViews = () => {
             />
           );
       }} />
+      <Route
+        path="/404"
+        render={(props) => {
+          return <FileNotFound />
+        }}
+      />
     </React.Fragment>
   );
 };
