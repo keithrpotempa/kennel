@@ -11,7 +11,8 @@ const AnimalDetail = props => {
       .then(animal => {
         setAnimal({
           name: animal.name,
-          breed: animal.breed
+          breed: animal.breed,
+          employeeId: animal.employeeId
         });
         setIsLoading(false);
       });
@@ -24,7 +25,7 @@ const AnimalDetail = props => {
       props.history.push("/animals")
     );
   };
-
+  // TODO: Get the employee to be their name, not just their ID
   return (
     <div className="card">
       <div className="card-content">
@@ -33,6 +34,7 @@ const AnimalDetail = props => {
         </picture>
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{animal.name}</span></h3>
         <p>Breed: {animal.breed}</p>
+        <p>Employee: {animal.employeeId}</p>
         <button type="button" disabled={isLoading} onClick={handleDelete}>
           Discharge
         </button>
