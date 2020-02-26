@@ -12,6 +12,7 @@ import AnimalEditForm from "./animal/AnimalEditForm";
 import OwnerList from "./owner/OwnerList";
 import OwnerDetail from "./owner/OwnerDetail";
 import OwnerForm from "./owner/OwnerForm";
+import OwnerEditForm from "./owner/OwnerEditForm";
 
 import EmployeeList from "./employee/EmployeeList";
 import EmployeeDetail from "./employee/EmployeeDetail";
@@ -115,7 +116,7 @@ const ApplicationViews = () => {
           return <OwnerForm {...props} />;
         }}
       />
-      <Route
+      <Route exact
         path="/owners/:ownerId(\d+)"
         render={props => {
           return (
@@ -127,7 +128,16 @@ const ApplicationViews = () => {
         }}
       />
       <Route
-        exact
+        path="/owners/:ownerId(\d+)/edit"
+        render={props => {
+          if (isAuthenticated()) {
+            return <OwnerEditForm {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+      />
+      <Route exact
         path="/employees"
         render={props => {
           if (isAuthenticated()) {
