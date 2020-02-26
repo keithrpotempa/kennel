@@ -1,9 +1,8 @@
 import React from "react";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import "./NavBar.css";
 
 const NavBar = () => {
-
   return (
     <header>
       <h1 className="site-title">
