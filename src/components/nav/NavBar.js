@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import "./NavBar.css";
 
 const NavBar = () => {
+
   return (
     <header>
       <h1 className="site-title">
@@ -13,29 +14,29 @@ const NavBar = () => {
       <nav>
         <ul className="container">
           <li>
-            <Link className="nav-link" to="/">
+            <NavLink className="nav-link" activeClassName="active" exact to="/">
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="nav-link" to="/animals">
+            <NavLink className="nav-link" activeClassName="active" to="/animals">
               Animals
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="nav-link" to="/locations">
+            <NavLink className="nav-link" activeClassName="active" to="/locations">
               Locations
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="nav-link" to="/employees">
+            <NavLink className="nav-link" activeClassName="active" to="/employees">
               Employees
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="nav-link" to="/owners">
+            <NavLink className="nav-link" activeClassName="active" to="/owners">
               Owners
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>
@@ -43,4 +44,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);

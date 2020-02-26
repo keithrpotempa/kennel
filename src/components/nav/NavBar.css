@@ -35,6 +35,10 @@ small {
     cursor: pointer;
   }
   
+  .active {
+    color: lime
+  }
+
   .nav-link:hover {
     color: maroon;
   }
