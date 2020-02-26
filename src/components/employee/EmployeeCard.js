@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import "./Employee.css";
 
 const EmployeeCard = props => {
   return (
@@ -15,6 +16,12 @@ const EmployeeCard = props => {
         <Link to={`/employees/${props.employee.id}`}>
           <button>Details</button>
         </Link>
+        <button
+          type="button"
+          onClick={() => props.history.push(`/employees/${props.employee.id}/edit`)}
+        >
+          Edit
+        </button>
       </div>
     </div>
   );
