@@ -22,6 +22,7 @@ import EmployeeEditForm from "./employee/EmployeeEditForm";
 import LocationList from "./location/LocationList";
 import LocationDetail from "./location/LocationDetail";
 import LocationForm from "./location/LocationForm";
+import LocationEditForm from "./location/LocationEditForm";
 
 const ApplicationViews = () => {
   // Check if credentials are in session storage returns true/false
@@ -71,8 +72,7 @@ const ApplicationViews = () => {
           }
         }}
       />
-      <Route
-        exact
+      <Route exact
         path="/locations"
         render={props => {
           if (isAuthenticated()) {
@@ -88,7 +88,7 @@ const ApplicationViews = () => {
           return <LocationForm {...props} />;
         }}
       />
-      <Route
+      <Route exact
         path="/locations/:locationId(\d+)"
         render={props => {
           return (
@@ -97,6 +97,16 @@ const ApplicationViews = () => {
               {...props}
             />
           );
+        }}
+      />
+      <Route
+        path="/locations/:locationId(\d+)/edit"
+        render={props => {
+          if (isAuthenticated()) {
+            return <LocationEditForm {...props} />;
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
       <Route
