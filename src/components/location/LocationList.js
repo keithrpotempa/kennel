@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import LocationCard from './LocationCard';
-import LocationManager from '../../modules/LocationManager';
+import ApiManager from '../../modules/ApiManager';
 
 const LocationList = props => {
   const [locations, setLocations] = useState([]);
 
   const getLocations = () => {
-    return LocationManager.getAll().then(locationsFromAPI => {
+    return ApiManager.getAll("locations").then(locationsFromAPI => {
       setLocations(locationsFromAPI)
     });
   };
@@ -16,8 +16,8 @@ const LocationList = props => {
   }, []);
 
   const deleteLocation = id => {
-    LocationManager.delete(id)
-      .then(() => LocationManager.getAll().then(setLocations));
+    ApiManager.delete("locations", id)
+      .then(() => ApiManager.getAll("locations").then(setLocations));
   };
 
   return (

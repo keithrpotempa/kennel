@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LocationManager from '../../modules/LocationManager';
+import ApiManager from '../../modules/ApiManager';
 import './LocationDetail.css'
 
 const LocationDetail = props => {
@@ -7,7 +7,7 @@ const LocationDetail = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    LocationManager.get(props.locationId)
+    ApiManager.get("locations", props.locationId)
       .then(location => {
         setLocation({
           name: location.name,
@@ -19,7 +19,7 @@ const LocationDetail = props => {
 
   const handleDelete = () => {
     setIsLoading(true);
-    LocationManager.delete(props.locationId).then(() => 
+    ApiManager.delete("locations", props.locationId).then(() => 
       props.history.push("/locations")
     );
   };
