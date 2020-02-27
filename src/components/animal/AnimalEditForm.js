@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ApiManager from "../../modules/ApiManager";
-import EmployeeManager from "../../modules/EmployeeManager";
 import "./AnimalForm.css";
 
 const AnimalEditForm = props => {
@@ -9,7 +8,7 @@ const AnimalEditForm = props => {
   const [employees, setEmployees] = useState([]);
 
   const getEmployees = () => {
-    return EmployeeManager.getAll().then(employeesFromAPI => {
+    return ApiManager.getAll("employees").then(employeesFromAPI => {
       setEmployees(employeesFromAPI)
     });
   };

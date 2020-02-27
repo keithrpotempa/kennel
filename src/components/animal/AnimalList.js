@@ -20,12 +20,7 @@ const AnimalList = props => {
     getAnimals();
   }, []);
 
-  const deleteAnimal = id => {
-    ApiManager.delete("animals", id)
-      .then(() => ApiManager.getAll().then(setAnimals));
-  };
-
-  // Finally we use map() to "loop over" the animals array to show a list of animal cards
+  //FIXME: Deleting from AnimalList fails to refresh Dom...
   return (
     <React.Fragment>
       <section className="section-content">
@@ -40,7 +35,10 @@ const AnimalList = props => {
           <AnimalCard
             key={animal.id}
             animal={animal}
-            deleteAnimal={deleteAnimal} 
+            deleteAnimal={() => {
+              props.handleDeleteAnimal(animal.id)
+                .then(getAnimals);
+            }} 
             {...props}
           />)}
       </div>
