@@ -24,6 +24,7 @@ import LocationList from "./location/LocationList";
 import LocationDetail from "./location/LocationDetail";
 import LocationForm from "./location/LocationForm";
 import LocationEditForm from "./location/LocationEditForm";
+import LocationWithEmployees from "./location/LocationWithEmployee";
 
 const ApplicationViews = () => {
   // Check if credentials are in session storage returns true/false
@@ -74,6 +75,7 @@ const ApplicationViews = () => {
           }
         }}
       />
+
       <Route
         exact
         path="/locations"
@@ -114,6 +116,13 @@ const ApplicationViews = () => {
         }}
       />
       <Route
+        path="/locations/:locationId(\d+)/details"
+        render={props => {
+          return <LocationWithEmployees {...props} />;
+        }}
+      />
+
+      <Route
         exact
         path="/owners"
         render={props => {
@@ -152,6 +161,7 @@ const ApplicationViews = () => {
           }
         }}
       />
+
       <Route
         exact
         path="/employees"
