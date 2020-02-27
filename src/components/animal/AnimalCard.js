@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Animal.css";
+import { handleDelete } from '../../modules/helpers'
 
 const AnimalCard = props => {
   return (
@@ -16,7 +17,7 @@ const AnimalCard = props => {
         <p>Employee: {props.animal.employeeId}</p>
         <button
           type="button"
-          onClick={() => props.deleteAnimal(props.animal.id)}
+          onClick={() => handleDelete(props)}
         >
           Discharge
         </button>

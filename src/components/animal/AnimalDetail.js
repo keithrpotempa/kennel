@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AnimalManager from '../../modules/AnimalManager';
+import { handleDelete } from '../../modules/helpers'
 import './AnimalDetail.css'
 
 const AnimalDetail = props => {
@@ -17,14 +18,7 @@ const AnimalDetail = props => {
         setIsLoading(false);
       });
   }, [props.animalId]);
-
-  const handleDelete = () => {
-    //invoke the delete function in AnimalManger and re-direct to the animal list.
-    setIsLoading(true);
-    AnimalManager.delete(props.animalId).then(() =>
-      props.history.push("/animals")
-    );
-  };
+  
   // TODO: Get the employee to be their name, not just their ID
   return (
     <div className="card">
@@ -35,7 +29,10 @@ const AnimalDetail = props => {
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{animal.name}</span></h3>
         <p>Breed: {animal.breed}</p>
         <p>Employee: {animal.employeeId}</p>
-        <button type="button" disabled={isLoading} onClick={handleDelete}>
+        <button type="button" disabled={isLoading} onClick={() => {
+          setIsLoading(true)
+          handleDelete(props)
+        }}>
           Discharge
         </button>
       </div>
