@@ -1,4 +1,5 @@
 import React from "react";
+import { handleDeleteEmployee } from '../../modules/helpers'
 import "./Employee.css";
 
 // TODO: Display the Employee's Location Name, not ID
@@ -14,7 +15,7 @@ const EmployeeCard = props => {
         <p>Location: {props.employee.locationId}</p>
         <button
           type="button"
-          onClick={() => props.deleteEmployee(props.employee.id)}
+          onClick={() => handleDeleteEmployee(props)}
         >
           Fire Employee
         </button>
