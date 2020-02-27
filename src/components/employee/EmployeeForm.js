@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EmployeeManager from '../../modules/EmployeeManager';
+import ApiManager from '../../modules/ApiManager';
 import './EmployeeForm.css'
 
 const EmployeeForm = props => {
@@ -22,7 +22,7 @@ const EmployeeForm = props => {
     } else {
       setIsLoading(true);
       // Create the animal and redirect user to animal list
-      EmployeeManager.post(employee)
+      ApiManager.post("employees", employee)
         .then(() => props.history.push("/employees"));
     }
   };

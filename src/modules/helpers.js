@@ -1,5 +1,4 @@
-import AnimalManager from '../modules/AnimalManager'
-import EmployeeManager from '../modules/EmployeeManager'
+import ApiManager from '../modules/ApiManager'
 
 export function firstLetterCase(str) {
   return (str.charAt(0).toUpperCase() + str.slice(1));
@@ -16,12 +15,14 @@ export function handleDeleteAnimal(props) {
   // having different formatting of their Ids 
   let animalId;
   if (props.animalId) {
-    animalId = props.animalId
+    animalId = props.animalId;
   } else if (props.animal.id) {
-    animalId = props.animal.id
+    animalId = props.animal.id;
+  } else if (Number.isInteger(props)) {
+    animalId = props;
   }
 
-  AnimalManager.delete(animalId).then(() =>
+  ApiManager.delete("animals", animalId).then(() =>
     props.history.push("/animals")
   );
 };
@@ -38,7 +39,7 @@ export function handleDeleteEmployee(props) {
     employeeId = props.employee.id
   }
 
-  EmployeeManager.delete(employeeId).then(() =>
+  ApiManager.delete("employees", employeeId).then(() =>
     props.history.push("/employees")
   );
 };

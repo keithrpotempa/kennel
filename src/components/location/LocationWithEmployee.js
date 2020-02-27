@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import LocationManager from '../../modules/LocationManager'
+import ApiManager from '../../modules/ApiManager'
 import EmployeeCard from '../employee/EmployeeCard'
 
 const LocationWithEmployees = props => {
@@ -7,7 +7,7 @@ const LocationWithEmployees = props => {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    LocationManager.getWithEmployees(props.match.params.locationId)
+    ApiManager.getAllXWithY("locations", "employees", props.match.params.locationId)
       .then(APIResult => {
         setLocation(APIResult);
         setEmployees(APIResult.employees);

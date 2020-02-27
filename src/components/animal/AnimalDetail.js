@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AnimalManager from '../../modules/AnimalManager';
+import ApiManager from '../../modules/ApiManager';
 import { handleDeleteAnimal } from '../../modules/helpers'
 import './AnimalDetail.css'
 
@@ -8,7 +8,7 @@ const AnimalDetail = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    AnimalManager.get(props.animalId)
+    ApiManager.get("animals", props.animalId)
       .then(animal => {
         setAnimal({
           name: animal.name,

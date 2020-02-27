@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LocationManager from '../../modules/LocationManager';
+import ApiManager from '../../modules/ApiManager';
 import './LocationForm.css'
 
 const LocationForm = props => {
@@ -18,7 +18,7 @@ const LocationForm = props => {
       window.alert("Please input an employee name and role");
     } else {
       setIsLoading(true);
-      LocationManager.post(location)
+      ApiManager.post("locations", location)
         .then(() => props.history.push("/locations"));
     }
   };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import OwnerManager from '../../modules/OwnerManager';
+import ApiManager from '../../modules/ApiManager';
 import './OwnerDetail.css'
 
 const OwnerDetail = props => {
@@ -7,7 +7,7 @@ const OwnerDetail = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    OwnerManager.get(props.ownerId)
+    ApiManager.get("owners", props.ownerId)
       .then(owner => {
         setOwner({
           name: owner.name,
@@ -19,7 +19,7 @@ const OwnerDetail = props => {
 
   const handleDelete = () => {
     setIsLoading(true);
-    OwnerManager.deleteOwner(props.ownerId).then(() =>
+    ApiManager.delete("owners", props.ownerId).then(() =>
       props.history.push("/owners")
     );
   };

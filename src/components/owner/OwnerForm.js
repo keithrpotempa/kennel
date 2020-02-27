@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OwnerManager from '../../modules/OwnerManager';
+import ApiManager from '../../modules/ApiManager';
 import './OwnerForm.css'
 
 const OwnerForm = props => {
@@ -18,7 +18,7 @@ const OwnerForm = props => {
       window.alert("Please input an owner name and phone number");
     } else {
       setIsLoading(true);
-      OwnerManager.post(owner)
+      ApiManager.post("owners", owner)
         .then(() => props.history.push("/owners"));
     }
   };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //import the components we will need
 import AnimalCard from './AnimalCard';
-import AnimalManager from '../../modules/AnimalManager';
+import ApiManager from '../../modules/ApiManager';
 
 const AnimalList = props => {
   // The initial state is an empty array
@@ -10,7 +10,7 @@ const AnimalList = props => {
   const getAnimals = () => {
     // After the data comes back from the API, we
     //  use the setAnimals function to update state
-    return AnimalManager.getAll().then(animalsFromAPI => {
+    return ApiManager.getAll("animals").then(animalsFromAPI => {
       setAnimals(animalsFromAPI)
     });
   };
@@ -20,12 +20,7 @@ const AnimalList = props => {
     getAnimals();
   }, []);
 
-  const deleteAnimal = id => {
-    AnimalManager.delete(id)
-      .then(() => AnimalManager.getAll().then(setAnimals));
-  };
-
-  // Finally we use map() to "loop over" the animals array to show a list of animal cards
+  //FIXME: Deleting from AnimalList fails to refresh Dom...
   return (
     <React.Fragment>
       <section className="section-content">
@@ -40,7 +35,10 @@ const AnimalList = props => {
           <AnimalCard
             key={animal.id}
             animal={animal}
-            deleteAnimal={deleteAnimal} 
+            deleteAnimal={() => {
+              props.handleDeleteAnimal(animal.id)
+                .then(getAnimals);
+            }} 
             {...props}
           />)}
       </div>

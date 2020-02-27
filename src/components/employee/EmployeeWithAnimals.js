@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import EmployeeManager from '../../modules/EmployeeManager'
+import ApiManager from '../../modules/ApiManager'
 import AnimalCard from '../animal/AnimalCard'
 
 const EmployeeWithAnimals = props => {
@@ -8,7 +8,7 @@ const EmployeeWithAnimals = props => {
 
   useEffect(() => {
     //got here now make call to get employee with animal
-    EmployeeManager.getWithAnimals(props.match.params.employeeId)
+    ApiManager.getAllXWithY("employees", "animals", props.match.params.employeeId)
       .then(APIResult => {
         setEmployee(APIResult);
         setAnimals(APIResult.animals);

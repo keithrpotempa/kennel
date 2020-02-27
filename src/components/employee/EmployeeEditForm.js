@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
-import EmployeeManager from "../../modules/EmployeeManager"
-import LocationManager from "../../modules/LocationManager"
+import ApiManager from "../../modules/ApiManager"
 import "./EmployeeForm.css"
 
 const EmployeeEditForm = props => {
@@ -9,7 +8,7 @@ const EmployeeEditForm = props => {
   const [locations, setLocations] = useState([])
 
   const getLocations = () => {
-    return LocationManager.getAll().then(locationsFromAPI => {
+    return ApiManager.getAll("locations").then(locationsFromAPI => {
       setLocations(locationsFromAPI)
     });
   };
@@ -32,12 +31,12 @@ const EmployeeEditForm = props => {
       locationId: parseInt(employee.locationId)
     };
 
-    EmployeeManager.update(editedEmployee)
+    ApiManager.update("employees", editedEmployee)
       .then(() => props.history.push("/employees"))
   }
 
   useEffect(() => {
-    EmployeeManager.get(props.match.params.employeeId)
+    ApiManager.get("employees", props.match.params.employeeId)
       .then(employee => {
         setEmployee(employee);
         setIsLoading(false);
