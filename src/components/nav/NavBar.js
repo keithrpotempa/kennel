@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import "./NavBar.css";
 
-const NavBar = () => {
+const NavBar = props => {
   return (
     <header>
       <h1 className="site-title">
@@ -18,25 +18,38 @@ const NavBar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className="nav-link" activeClassName="active" to="/animals">
-              Animals
+            <NavLink className="nav-link" activeClassName="active" exact to="/login">
+              Login
             </NavLink>
           </li>
-          <li>
-            <NavLink className="nav-link" activeClassName="active" to="/locations">
-              Locations
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-link" activeClassName="active" to="/employees">
-              Employees
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-link" activeClassName="active" to="/owners">
-              Owners
-            </NavLink>
-          </li>
+          {props.hasUser
+            ? <li>
+                <NavLink className="nav-link" activeClassName="active" to="/animals">
+                  Animals
+                </NavLink>
+              </li>
+          : null}
+          {props.hasUser
+            ? <li>
+                <NavLink className="nav-link" activeClassName="active" to="/locations">
+                  Locations
+                </NavLink>
+              </li>
+            : null}
+          {props.hasUser
+            ? <li>
+                <NavLink className="nav-link" activeClassName="active" to="/employees">
+                  Employees
+                </NavLink>
+              </li>
+            : null}
+          {props.hasUser
+            ? <li>
+                <NavLink className="nav-link" activeClassName="active" to="/owners">
+                  Owners
+                </NavLink>
+              </li>
+            : null}
         </ul>
       </nav>
     </header>
