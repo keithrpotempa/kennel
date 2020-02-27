@@ -16,10 +16,15 @@ const Kennel = () => {
     setHasUser(isAuthenticated());
   }
 
+  const clearUser = () => {
+    sessionStorage.clear();
+    setHasUser(isAuthenticated());
+  }
+
   return (
     <>
-      <NavBar hasUser={hasUser}/>
-      <ApplicationViews hasUser={hasUser} setUser={setUser}/>
+      <NavBar hasUser={hasUser} clearUser={clearUser}/>
+      <ApplicationViews hasUser={hasUser} setUser={setUser} />
     </>
   );
 };
