@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import AnimalManager from '../../modules/AnimalManager';
+import ApiManager from '../../modules/ApiManager';
 import './AnimalForm.css'
+
+//TODO: add the ability to choose an employee to attach to the new animal
 
 const AnimalForm = props => {
   const [animal, setAnimal] = useState({ name: "", breed: "" });
@@ -21,7 +23,7 @@ const AnimalForm = props => {
     } else {
       setIsLoading(true);
       // Create the animal and redirect user to animal list
-      AnimalManager.post(animal)
+      ApiManager.post("animals", animal)
         .then(() => props.history.push("/animals"));
     }
   };
