@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Employee.css";
 
 const EmployeeCard = props => {
@@ -13,9 +12,8 @@ const EmployeeCard = props => {
         </h3>
         <p>Role: {props.employee.role}</p>
         <button type="button" onClick={() => props.deleteEmployee(props.employee.id)}>Fire Employee</button>
-        <Link to={`/employees/${props.employee.id}`}>
-          <button>Details</button>
-        </Link>
+        <button type="button"
+          onClick={() => { props.history.push(`/employees/${props.employee.id}/details`) }}>Details</button>
         <button
           type="button"
           onClick={() => props.history.push(`/employees/${props.employee.id}/edit`)}

@@ -18,6 +18,7 @@ import EmployeeList from "./employee/EmployeeList";
 import EmployeeDetail from "./employee/EmployeeDetail";
 import EmployeeForm from "./employee/EmployeeForm";
 import EmployeeEditForm from "./employee/EmployeeEditForm";
+import EmployeeWithAnimals from "./employee/EmployeeWithAnimals";
 
 import LocationList from "./location/LocationList";
 import LocationDetail from "./location/LocationDetail";
@@ -55,7 +56,8 @@ const ApplicationViews = () => {
           return <AnimalForm {...props} />;
         }}
       />
-      <Route exact
+      <Route
+        exact
         path="/animals/:animalId(\d+)"
         render={props => {
           const animalId = parseInt(props.match.params.animalId);
@@ -72,7 +74,8 @@ const ApplicationViews = () => {
           }
         }}
       />
-      <Route exact
+      <Route
+        exact
         path="/locations"
         render={props => {
           if (isAuthenticated()) {
@@ -88,7 +91,8 @@ const ApplicationViews = () => {
           return <LocationForm {...props} />;
         }}
       />
-      <Route exact
+      <Route
+        exact
         path="/locations/:locationId(\d+)"
         render={props => {
           return (
@@ -126,7 +130,8 @@ const ApplicationViews = () => {
           return <OwnerForm {...props} />;
         }}
       />
-      <Route exact
+      <Route
+        exact
         path="/owners/:ownerId(\d+)"
         render={props => {
           return (
@@ -147,7 +152,8 @@ const ApplicationViews = () => {
           }
         }}
       />
-      <Route exact
+      <Route
+        exact
         path="/employees"
         render={props => {
           if (isAuthenticated()) {
@@ -163,7 +169,8 @@ const ApplicationViews = () => {
           return <EmployeeForm {...props} />;
         }}
       />
-      <Route exact
+      <Route
+        exact
         path="/employees/:employeeId(\d+)"
         render={props => {
           return (
@@ -182,6 +189,12 @@ const ApplicationViews = () => {
           } else {
             return <Redirect to="/login" />;
           }
+        }}
+      />
+      <Route
+        path="/employees/:employeeId(\d+)/details"
+        render={props => {
+          return <EmployeeWithAnimals {...props} />;
         }}
       />
       <Route
