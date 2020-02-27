@@ -35,6 +35,7 @@ const EmployeeEditForm = props => {
       });
   }, []);
 
+  // TODO: Add the ability to edit the Employee Location
   return (
     <>
       <form>

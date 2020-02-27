@@ -5,7 +5,11 @@ export default {
     return fetch(`${remoteURL}/locations/${id}`).then(result => result.json())
   },
   getAll() {
-    return fetch(`${remoteURL}/locations`).then(result => result.json())
+    return fetch(`${remoteURL}/locations?_embed=employees`).then(result => result.json())
+  },
+  getWithEmployees(id) {
+    return fetch(`${remoteURL}/locations/${id}?_embed=employees`)
+      .then(result => result.json())
   },
   delete(id) {
     return fetch(`${remoteURL}/locations/${id}`, {
