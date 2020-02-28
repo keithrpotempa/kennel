@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ApiManager from "../modules/ApiManager";
 import AnimalCard from "../components/animal/AnimalCard"
-import {handleDelete} from "../modules/helpers"
 import EmployeeCard from "../components/employee/EmployeeCard";
 import LocationCard from "../components/location/LocationCard";
 import OwnerCard from "../components/owner/OwnerCard";
@@ -60,7 +59,8 @@ const SearchResults = props => {
                   key={animal.id}
                   animal={animal}
                   deleteAnimal={() => {
-                    handleDelete("animals", animal.id, props);
+                    ApiManager.delete("animals", animal.id)
+                      .then(getAnimals);
                   }} 
                   {...props}
                 />          
@@ -78,7 +78,8 @@ const SearchResults = props => {
                   key={employee.id} 
                   employee={employee}
                   deleteEmployee={() => {
-                    handleDelete("employees", employee.id, props);
+                    ApiManager.delete("employees", employee.id)
+                      .then(getEmployees);
                   }} 
                   {...props}
                 />
@@ -96,7 +97,8 @@ const SearchResults = props => {
                   key={location.id} 
                   locationObject={location}
                   deleteLocation={() => {
-                    handleDelete("locations", location.id, props);
+                    ApiManager.delete("locations", location.id)
+                      .then(getLocations);
                   }} 
                   {...props}
                 />
@@ -114,7 +116,8 @@ const SearchResults = props => {
                   key={owner.id} 
                   owner={owner}
                   deleteOwner={() => {
-                    handleDelete("owners", owner.id, props);
+                    ApiManager.delete("owners", owner.id)
+                      .then(getOwners);
                   }} 
                   {...props}
                 />

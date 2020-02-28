@@ -18,7 +18,7 @@ const AnimalCard = props => {
         <p>Employee: {props.animal.employeeId}</p>
         <button
           type="button"
-          onClick={() => handleDelete("animals", props.animal.id, props)}
+          onClick={() => props.deleteAnimal("animals", props.animal.id)}
         >
           Discharge
         </button>
