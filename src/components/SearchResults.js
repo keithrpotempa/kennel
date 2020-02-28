@@ -26,13 +26,12 @@ const SearchResults = props => {
   //even when the user is on the search page
   //it re-renders
 
-  //FIXME: this "conditional" with the JSX isn't working
   //TODO: getAllResults may not be the best way of handling a delete...
   return (
     <>
-      <h3>Search results for: {props.search}</h3>
+      <h3>Search results for: "{props.search}"</h3>
         {
-          animals &&
+          animals.length > 0 &&
           <>
             <h1>Matching Animals</h1>
             <div className="container-cards">
@@ -51,7 +50,7 @@ const SearchResults = props => {
           </>
         }
         {
-          employees && 
+          employees.length > 0 && 
           <>
             <h1>Matching Employees</h1>
             <div className="container-cards">
@@ -70,7 +69,7 @@ const SearchResults = props => {
           </>
         }
         {
-          locations && 
+          locations.length > 0 && 
           <>
             <h1>Matching Locations</h1>
             <div className="container-cards">
@@ -88,7 +87,7 @@ const SearchResults = props => {
           </>
         }
         {
-          owners && 
+          owners.length > 0 && 
           <>
             <h1>Matching Owners</h1>
             <div className="container-cards">
