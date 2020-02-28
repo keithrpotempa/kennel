@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
-import { handleDelete } from '../../modules/helpers';
 import './LocationDetail.css'
-
-//TODO: I believe this is deprecated now that LocationWithEmployee exists..
 
 const LocationDetail = props => {
   const [location, setLocation] = useState({ name: "", address: "" });
@@ -20,15 +17,19 @@ const LocationDetail = props => {
       });
   }, [props.locationId]);
 
+  const handleDelete = () => {
+    setIsLoading(true);
+    ApiManager.delete("locations", props.locationId).then(() => 
+      props.history.push("/locations")
+    );
+  };
+
   return (
     <div className="card">
       <div className="card-content">
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{location.name}</span></h3>
         <p>Location: {location.address}</p>
-        <button type="button" disabled={isLoading} onClick={() => {
-          setIsLoading(true);
-          handleDelete("locations", props.locationId, props);
-        }}>
+        <button type="button" disabled={isLoading} onClick={handleDelete}>
           Close Location
         </button>
       </div>

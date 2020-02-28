@@ -18,6 +18,7 @@ const NavBar = props => {
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter'){
+      //FIXME: how do you pass props on to search?
       props.history.push(`/search/${search.search}`);
     }
   }

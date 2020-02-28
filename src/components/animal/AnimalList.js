@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 //import the components we will need
 import AnimalCard from './AnimalCard';
 import ApiManager from '../../modules/ApiManager';
-import { handleDelete } from '../../modules/helpers'
 
 const AnimalList = props => {
   // The initial state is an empty array
@@ -37,7 +36,8 @@ const AnimalList = props => {
             key={animal.id}
             animal={animal}
             deleteAnimal={() => {
-              ApiManager.Delete("animals", animal.id)
+              props.handleDeleteAnimal(animal.id)
+                .then(getAnimals);
             }} 
             {...props}
           />)}

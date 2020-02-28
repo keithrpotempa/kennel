@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Animal.css";
-import { handleDelete } from '../../modules/helpers'
+import { handleDeleteAnimal } from '../../modules/helpers'
 
-//FIXME: clicking handleDelete on AnimalList doesn't re-render the list 
 const AnimalCard = props => {
   return (
     <div className="card">
@@ -18,7 +17,7 @@ const AnimalCard = props => {
         <p>Employee: {props.animal.employeeId}</p>
         <button
           type="button"
-          onClick={() => props.deleteAnimal("animals", props.animal.id)}
+          onClick={() => handleDeleteAnimal(props)}
         >
           Discharge
         </button>
