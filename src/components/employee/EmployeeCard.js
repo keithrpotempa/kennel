@@ -1,9 +1,9 @@
 import React from "react";
-import { handleDeleteEmployee } from '../../modules/helpers'
+import { handleDelete } from '../../modules/helpers'
 import "./Employee.css";
 
 // TODO: Display the Employee's Location Name, not ID
-
+// FIXME: deleting an employee from employeeList does not re-render
 const EmployeeCard = props => {
   return (
     <div className="card">
@@ -15,7 +15,7 @@ const EmployeeCard = props => {
         <p>Location: {props.employee.locationId}</p>
         <button
           type="button"
-          onClick={() => handleDeleteEmployee(props)}
+          onClick={() => handleDelete("employees", props.employee.id, props)}
         >
           Fire Employee
         </button>

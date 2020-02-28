@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
-import { handleDeleteAnimal } from '../../modules/helpers'
+import { handleDelete } from '../../modules/helpers'
 import './AnimalDetail.css'
 
 const AnimalDetail = props => {
@@ -31,7 +31,7 @@ const AnimalDetail = props => {
         <p>Employee: {animal.employeeId}</p>
         <button type="button" disabled={isLoading} onClick={() => {
           setIsLoading(true)
-          handleDeleteAnimal(props)
+          handleDelete("animals", props.animalId, props)
         }}>
           Discharge
         </button>

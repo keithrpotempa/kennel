@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ApiManager from "../modules/ApiManager";
 import AnimalCard from "../components/animal/AnimalCard"
-import {handleDeleteAnimal, handleDeleteEmployee} from "../modules/helpers"
+import {handleDelete} from "../modules/helpers"
 import EmployeeCard from "../components/employee/EmployeeCard";
 import LocationCard from "../components/location/LocationCard";
 import OwnerCard from "../components/owner/OwnerCard";
@@ -12,21 +12,41 @@ const SearchResults = props => {
   const [locations, setLocations] = useState([]) 
   const [owners, setOwners] = useState([]) 
 
+  const getAnimals = (query) => {
+    return ApiManager.search("animals", query)
+      .then(results => setAnimals(results));
+  }
+
+  const getEmployees = (query) => {
+    return ApiManager.search("employees", query)
+      .then(results => setEmployees(results));
+  }
+
+  const getLocations = (query) => {
+    ApiManager.search("locations", query)
+      .then(results => setLocations(results));
+
+  }
+
+  const getOwners = (query) => {
+    ApiManager.search("owners", query)
+      .then(results => setOwners(results));
+  }
+
   const getAllResults = (query) => {
-    ApiManager.search("animals", query).then(results => setAnimals(results));
-    ApiManager.search("employees", query).then(results => setEmployees(results));
-    ApiManager.search("locations", query).then(results => setLocations(results));
-    ApiManager.search("owners", query).then(results => setOwners(results));
+    getAnimals(query);
+    getEmployees(query);
+    getLocations(query);
+    getOwners(query);
   }
 
   useEffect(() => {
     getAllResults(props.search);
   }, [props.match.params]);
-  //props.match.params added here so that if the url changes
+  //props.match.params added above so that if the url changes
   //even when the user is on the search page
   //it re-renders
 
-  //TODO: getAllResults may not be the best way of handling a delete...
   return (
     <>
       <h3>Search results for: "{props.search}"</h3>
@@ -40,8 +60,7 @@ const SearchResults = props => {
                   key={animal.id}
                   animal={animal}
                   deleteAnimal={() => {
-                    handleDeleteAnimal(animal.id)
-                      .then(getAllResults);
+                    handleDelete("animals", animal.id, props);
                   }} 
                   {...props}
                 />          
@@ -59,8 +78,7 @@ const SearchResults = props => {
                   key={employee.id} 
                   employee={employee}
                   deleteEmployee={() => {
-                    handleDeleteEmployee(employee.id)
-                      .then(getAllResults);
+                    handleDelete("employees", employee.id, props);
                   }} 
                   {...props}
                 />
@@ -78,7 +96,7 @@ const SearchResults = props => {
                   key={location.id} 
                   locationObject={location}
                   deleteLocation={() => {
-                    //FIXME: this function hasn't been lifted
+                    handleDelete("locations", location.id, props);
                   }} 
                   {...props}
                 />
@@ -96,7 +114,7 @@ const SearchResults = props => {
                   key={owner.id} 
                   owner={owner}
                   deleteOwner={() => {
-                    //FIXME: this function hasn't been lifted
+                    handleDelete("owners", owner.id, props);
                   }} 
                   {...props}
                 />

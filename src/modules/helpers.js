@@ -8,6 +8,15 @@ export function splitTypeArray(arr){
    return arr.join(" and ");
 }
 
+export function handleDelete(dataType, id, props) {
+  // TODO: confirm all handleDelete invoking use an id, 
+  // as opposed to a prop
+
+  ApiManager.delete(dataType, id).then(() =>
+    props.history.push(`/${dataType}`)
+  );
+};
+
 export function handleDeleteAnimal(props) {
   //invoke the delete function in AnimalManger and re-direct to the animal list.
 

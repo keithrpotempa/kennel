@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
+import { handleDelete } from '../../modules/helpers'
 import './OwnerDetail.css'
 
 const OwnerDetail = props => {
@@ -17,19 +18,15 @@ const OwnerDetail = props => {
       });
   }, [props.ownerId]);
 
-  const handleDelete = () => {
-    setIsLoading(true);
-    ApiManager.delete("owners", props.ownerId).then(() =>
-      props.history.push("/owners")
-    );
-  };
-
   return (
     <div className="card">
       <div className="card-content">
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{owner.name}</span></h3>
         <p>Phone Number: {owner.phoneNumber}</p>
-        <button type="button" disabled={isLoading} onClick={handleDelete}>
+        <button type="button" disabled={isLoading} onClick={() => {
+          setIsLoading(true);
+          handleDelete("owners", props.ownerId, props)
+        }}>
           Remove Owner
         </button>
       </div>
