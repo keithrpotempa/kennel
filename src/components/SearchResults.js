@@ -48,9 +48,9 @@ const SearchResults = props => {
 
   return (
     <>
-      <h3>Search results for: "{props.search}"</h3>
+      <h3>Search results for: {props.search}</h3>
         {
-          animals.length > 0 &&
+          animals &&
           <>
             <h1>Matching Animals</h1>
             <div className="container-cards">
@@ -69,7 +69,7 @@ const SearchResults = props => {
           </>
         }
         {
-          employees.length > 0 && 
+          employees && 
           <>
             <h1>Matching Employees</h1>
             <div className="container-cards">
@@ -88,7 +88,7 @@ const SearchResults = props => {
           </>
         }
         {
-          locations.length > 0 && 
+          locations && 
           <>
             <h1>Matching Locations</h1>
             <div className="container-cards">
@@ -107,7 +107,7 @@ const SearchResults = props => {
           </>
         }
         {
-          owners.length > 0 && 
+          owners && 
           <>
             <h1>Matching Owners</h1>
             <div className="container-cards">
