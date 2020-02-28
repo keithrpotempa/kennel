@@ -8,18 +8,18 @@ const AnimalDetail = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    ApiManager.get("animals", props.animalId)
+    ApiManager.getOneXWithY("animals", "employee", props.animalId)
       .then(animal => {
         setAnimal({
           name: animal.name,
           breed: animal.breed,
-          employeeId: animal.employeeId
+          employeeId: animal.employeeId,
+          employeeName: animal.employee.name
         });
         setIsLoading(false);
       });
   }, [props.animalId]);
   
-  // TODO: Get the employee to be their name, not just their ID
   return (
     <div className="card">
       <div className="card-content">
@@ -28,7 +28,7 @@ const AnimalDetail = props => {
         </picture>
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{animal.name}</span></h3>
         <p>Breed: {animal.breed}</p>
-        <p>Employee: {animal.employeeId}</p>
+        <p>Employee: {animal.employeeName}</p>
         <button type="button" disabled={isLoading} onClick={() => {
           setIsLoading(true)
           handleDeleteAnimal(props)

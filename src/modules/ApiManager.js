@@ -7,8 +7,12 @@ export default {
   getAll(dataType) {
     return fetch(`${remoteURL}/${dataType}`).then(result => result.json());
   },
-  getAllXWithY(dataTypeX, dataTypeY, id){
-    return fetch(`${remoteURL}/${dataTypeX}/${id}?_embed=${dataTypeY}`)
+  getOneXWithY(dataTypeX, dataTypeY, id){
+    return fetch(`${remoteURL}/${dataTypeX}/${id}?_expand=${dataTypeY}`)
+      .then(result => result.json())
+  },
+  getAllXWithY(dataTypeX, dataTypeY){
+    return fetch(`${remoteURL}/${dataTypeX}?_expand=${dataTypeY}`)
       .then(result => result.json())
   },
   search(dataType, query){
