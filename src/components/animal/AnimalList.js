@@ -10,7 +10,7 @@ const AnimalList = props => {
   const getAnimals = () => {
     // After the data comes back from the API, we
     //  use the setAnimals function to update state
-    return ApiManager.getAllXWithY("animals", "employee").then(animalsFromAPI => {
+    return ApiManager.getAllXWithTheirOneY("animals", "employee").then(animalsFromAPI => {
       setAnimals(animalsFromAPI)
     });
   };

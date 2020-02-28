@@ -8,7 +8,7 @@ const AnimalDetail = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    ApiManager.getOneXWithY("animals", "employee", props.animalId)
+    ApiManager.getOneXWithOneY("animals", "employee", props.animalId)
       .then(animal => {
         setAnimal({
           name: animal.name,

@@ -6,7 +6,7 @@ const EmployeeList = props => {
   const [employees, setEmployees] = useState([]);
 
   const getEmployees = () => {
-    return ApiManager.getAll("employees").then(employeesFromAPI => {
+    return ApiManager.getAllXWithTheirOneY("employees", "location").then(employeesFromAPI => {
       setEmployees(employeesFromAPI)
     });
   };
@@ -17,7 +17,7 @@ const EmployeeList = props => {
 
   const deleteEmployee = id => {
     ApiManager.delete("employees", id)
-      .then(() => ApiManager.getAll().then(setEmployees));
+      .then(getEmployees);
   };
 
   return(

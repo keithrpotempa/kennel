@@ -8,7 +8,7 @@ const EmployeeWithAnimals = props => {
 
   useEffect(() => {
     //got here now make call to get employee with animal
-    ApiManager.getAllXWithY("employees", "animals", props.match.params.employeeId)
+    ApiManager.getOneXWithManyY("employees", "animals", props.match.params.employeeId)
       .then(APIResult => {
         setEmployee(APIResult);
         setAnimals(APIResult.animals);

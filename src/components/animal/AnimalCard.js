@@ -4,6 +4,16 @@ import "./Animal.css";
 import { handleDeleteAnimal } from '../../modules/helpers'
 
 const AnimalCard = props => {
+  // Hacky way of getting around the difference in info between
+  // EmployeeWithAnimals and Animal* components
+  // console.log(props)
+  let employeeJSX;
+  if ("employee" in props.animal) {
+    employeeJSX = props.animal.employee.name
+  } else if ("employee" in props) {
+    employeeJSX = props.employee.name
+  }
+
   return (
     <div className="card">
       <div className="card-content">
@@ -14,7 +24,7 @@ const AnimalCard = props => {
           Name: <span className="card-petname">{props.animal.name}</span>
         </h3>
         <p>Breed: {props.animal.breed}</p>
-        <p>Employee: {props.animal.employee.name}</p>
+        <p>Employee: {employeeJSX}</p>
         <button
           type="button"
           onClick={() => handleDeleteAnimal(props)}
