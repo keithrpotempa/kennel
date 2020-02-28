@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import './EmployeeForm.css'
 
 const EmployeeForm = props => {
   const [employee, setEmployee] = useState({ name: "", role: "" });
+  const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldChange = evt => {
@@ -11,6 +12,13 @@ const EmployeeForm = props => {
     stateToChange[evt.target.id] = evt.target.value;
     setEmployee(stateToChange);
   };
+
+  const getLocations = () => {
+    return ApiManager.getAll("locations")
+      .then(locations => {
+        setLocations(locations);
+      });
+  }
 
   /*  Local method for validation, set loadingStatus, create animal      
       object, invoke the AnimalManager post method, and redirect to the full animal list
@@ -26,6 +34,10 @@ const EmployeeForm = props => {
         .then(() => props.history.push("/employees"));
     }
   };
+
+  useEffect(()=>{
+    getLocations();
+  }, [])
 
   return (
     <>
@@ -48,6 +60,19 @@ const EmployeeForm = props => {
               placeholder="Role"
             />
             <label htmlFor="role">Role</label>
+            <select
+              className="form-control"
+              required
+              id="locationId"
+              onChange={handleFieldChange}
+            >
+              {locations.map(location => (
+                <option key={location.id} value={location.id}>
+                  {location.name}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="locationId">Location</label>
           </div>
           <div className="alignRight">
             <button
