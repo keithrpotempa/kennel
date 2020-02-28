@@ -15,6 +15,11 @@ const LocationList = props => {
     getLocations();
   }, []);
 
+  const deleteLocation = id => {
+    ApiManager.delete("locations", id)
+      .then(() => ApiManager.getAll("locations").then(setLocations));
+  };
+
   return (
     <>
       <section className="section-content">
@@ -29,10 +34,7 @@ const LocationList = props => {
           <LocationCard 
             key={location.id} 
             locationObject={location}
-            deleteLocation={() => {
-              ApiManager.delete("locations", location.id)
-                .then(getLocations)
-            }}
+            deleteLocation={deleteLocation}
             {...props}
           />
         )}

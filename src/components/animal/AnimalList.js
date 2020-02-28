@@ -18,9 +18,9 @@ const AnimalList = props => {
   // got the animals from the API on the component's first render
   useEffect(() => {
     getAnimals();
-  }, [animals]);
-  //Added animals here to get the DOM to refresh when an animal is deleted
+  }, []);
 
+  //FIXME: Deleting from AnimalList fails to refresh Dom...
   return (
     <React.Fragment>
       <section className="section-content">

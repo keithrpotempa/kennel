@@ -1,26 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import "./NavBar.css";
 
 const NavBar = props => {
-  const [search, setSearch] = useState("")
-
   const handleLogout = () => {
     props.clearUser();
     props.history.push('/');
-  }
-
-  const handleFieldChange = evt => {
-    const stateToChange = { search };
-    stateToChange[evt.target.id] = evt.target.value;
-    setSearch(stateToChange);
-  }
-
-  const handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
-      //FIXME: how do you pass props on to search?
-      props.history.push(`/search/${search.search}`);
-    }
   }
 
   return (
@@ -68,20 +53,6 @@ const NavBar = props => {
           {props.hasUser
             ? <li>
                 <span className="nav-link" onClick={handleLogout}> Logout </span>
-              </li>
-            : <li>
-                <NavLink className="nav-link" to="/login">Login</NavLink>
-              </li>}
-          {props.hasUser
-            ? <li>
-                <input 
-                  type="text"
-                  onChange={handleFieldChange}
-                  onKeyUp={handleKeyPress}
-                  search={search}
-                  id="search"
-                  placeholder="Type search here..."
-                />
               </li>
             : <li>
                 <NavLink className="nav-link" to="/login">Login</NavLink>
