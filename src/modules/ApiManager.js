@@ -9,7 +9,11 @@ export default {
   },
   getAllXWithY(dataTypeX, dataTypeY, id){
     return fetch(`${remoteURL}/${dataTypeX}/${id}?_embed=${dataTypeY}`)
-    .then(result => result.json())
+      .then(result => result.json())
+  },
+  search(dataType, query){
+    return fetch(`${remoteURL}/${dataType}?q=${query}`)
+      .then(results => results.json())
   },
   delete(dataType, id) {
     return fetch(`${remoteURL}/${dataType}/${id}`, {

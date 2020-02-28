@@ -3,6 +3,7 @@ import React from "react";
 import Home from "./home/Home";
 import Login from "./auth/Login";
 import FileNotFound from "./FileNotFound";
+import SearchResults from "./SearchResults";
 
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
@@ -46,6 +47,27 @@ const ApplicationViews = props => {
         path="/404"
         render={props => {
           return <FileNotFound />;
+        }}
+      />
+      {/*-------------------SEARCH------------------- */}
+      <Route
+        exact path="/search"
+        render={props => {
+          return <SearchResults {...props}/>;
+        }}
+      />
+      <Route
+        path="/search/:searchQuery"
+        render={props => {
+          if (hasUser) {
+            return (
+              <SearchResults
+                search={props.match.params.searchQuery}
+                {...props}/>
+            ) 
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
       {/*-------------------ANIMALS------------------- */}
