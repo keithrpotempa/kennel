@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import EmployeeCard from '../employee/EmployeeCard'
 
-//FIXME: this view is currently not working
-
 const LocationWithEmployees = props => {
   const [location, setLocation] = useState({});
   const [employees, setEmployees] = useState([]);

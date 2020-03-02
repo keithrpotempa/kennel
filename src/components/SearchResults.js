@@ -6,6 +6,9 @@ import EmployeeCard from "../components/employee/EmployeeCard";
 import LocationCard from "../components/location/LocationCard";
 import OwnerCard from "../components/owner/OwnerCard";
 
+// FIXME: Search currently doesn't have access to the the embed/expanded
+// properties of these API searches...
+
 const SearchResults = props => {
   const [employees, setEmployees] = useState([]) 
   const [animals, setAnimals] = useState([]) 
@@ -58,6 +61,8 @@ const SearchResults = props => {
                 <EmployeeCard 
                   key={employee.id} 
                   employee={employee}
+                  // FIXME: using employee.locationId is not quite right...
+                  employeeLocation={employee.locationId}
                   deleteEmployee={() => {
                     handleDeleteEmployee(employee.id)
                       .then(getAllResults);
