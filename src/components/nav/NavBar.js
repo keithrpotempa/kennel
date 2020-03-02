@@ -83,9 +83,8 @@ const NavBar = props => {
                   placeholder="Type search here..."
                 />
               </li>
-            : <li>
-                <NavLink className="nav-link" to="/login">Login</NavLink>
-              </li>}
+            : null
+          }
         </ul>
       </nav>
     </header>

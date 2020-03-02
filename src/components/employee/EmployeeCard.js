@@ -10,7 +10,7 @@ const EmployeeCard = props => {
           Name: <span className="card-employeename">{props.employee.name}</span>
         </h3>
         <p>Role: {props.employee.role}</p>
-        <p>Location: {props.employee.location.name}</p>
+        <p>Location: {props.employeeLocation.name}</p>
         <button
           type="button"
           onClick={() => handleDeleteEmployee(props)}

@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import EmployeeCard from '../employee/EmployeeCard'
 
+//FIXME: this view is currently not working
+
 const LocationWithEmployees = props => {
   const [location, setLocation] = useState({});
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    ApiManager.getAllXWithY("locations", "employees", props.match.params.locationId)
+    ApiManager.getOneXWithManyY("locations", "employees", props.match.params.locationId)
       .then(APIResult => {
+        console.log(APIResult)
         setLocation(APIResult);
         setEmployees(APIResult.employees);
       });
@@ -21,7 +24,7 @@ const LocationWithEmployees = props => {
         <EmployeeCard
           key={employee.id}
           employee={employee}
-          location={location}
+          employeeLocation={location}
           {...props}
         />
       )}
