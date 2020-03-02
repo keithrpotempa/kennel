@@ -8,6 +8,8 @@ export function splitTypeArray(arr){
    return arr.join(" and ");
 }
 
+//FIXME: Propogate delete function everywhere
+
 export function handleDeleteAnimal(props) {
   //invoke the delete function in AnimalManger and re-direct to the animal list.
 

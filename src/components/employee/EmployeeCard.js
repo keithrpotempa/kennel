@@ -1,5 +1,4 @@
 import React from "react";
-import { handleDeleteEmployee } from '../../modules/helpers'
 import "./Employee.css";
 
 const EmployeeCard = props => {
@@ -13,7 +12,7 @@ const EmployeeCard = props => {
         <p>Location: {props.employeeLocation.name}</p>
         <button
           type="button"
-          onClick={() => handleDeleteEmployee(props)}
+          onClick={props.handleDelete}
         >
           Fire Employee
         </button>

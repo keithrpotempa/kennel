@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Animal.css";
-import { handleDeleteAnimal } from '../../modules/helpers'
 
 const AnimalCard = props => {
   // Hacky way of getting around the difference in info between
   // EmployeeWithAnimals and Animal* components
-  // console.log(props)
   let employeeJSX;
   if ("employee" in props.animal) {
     employeeJSX = props.animal.employee.name
@@ -27,7 +25,7 @@ const AnimalCard = props => {
         <p>Employee: {employeeJSX}</p>
         <button
           type="button"
-          onClick={() => handleDeleteAnimal(props)}
+          onClick={props.handleDelete}
         >
           Discharge
         </button>

@@ -18,8 +18,7 @@ const AnimalList = props => {
   // got the animals from the API on the component's first render
   useEffect(() => {
     getAnimals();
-  }, [animals]);
-  //Added animals here to get the DOM to refresh when an animal is deleted
+  }, []);
 
   return (
     <React.Fragment>
@@ -35,8 +34,8 @@ const AnimalList = props => {
           <AnimalCard
             key={animal.id}
             animal={animal}
-            deleteAnimal={() => {
-              props.handleDeleteAnimal(animal.id)
+            handleDelete={() => {
+              ApiManager.delete("animals", animal.id)
                 .then(getAnimals);
             }} 
             {...props}

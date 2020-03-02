@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
-import { handleDeleteAnimal } from '../../modules/helpers'
 import './AnimalDetail.css'
 
 const AnimalDetail = props => {
   const [animal, setAnimal] = useState({ name: "", breed: "" });
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  const getAnimalWithEmployee = () => {
     ApiManager.getOneXWithOneY("animals", "employee", props.animalId)
       .then(animal => {
         setAnimal({
@@ -18,6 +17,10 @@ const AnimalDetail = props => {
         });
         setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    getAnimalWithEmployee();
   }, [props.animalId]);
   
   return (
@@ -31,7 +34,8 @@ const AnimalDetail = props => {
         <p>Employee: {animal.employeeName}</p>
         <button type="button" disabled={isLoading} onClick={() => {
           setIsLoading(true)
-          handleDeleteAnimal(props)
+          ApiManager.delete("animals", props.animalId)
+            .then(props.history.push("/animals"))
         }}>
           Discharge
         </button>

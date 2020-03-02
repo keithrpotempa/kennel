@@ -6,13 +6,16 @@ const LocationWithEmployees = props => {
   const [location, setLocation] = useState({});
   const [employees, setEmployees] = useState([]);
 
-  useEffect(() => {
+  const getLocationAndEmployees = () => {
     ApiManager.getOneXWithManyY("locations", "employees", props.match.params.locationId)
       .then(APIResult => {
-        console.log(APIResult)
         setLocation(APIResult);
         setEmployees(APIResult.employees);
       });
+  } 
+
+  useEffect(() => {
+    getLocationAndEmployees();
   }, []);
 
   return (
@@ -23,6 +26,10 @@ const LocationWithEmployees = props => {
           key={employee.id}
           employee={employee}
           employeeLocation={location}
+          handleDelete={() => {
+            ApiManager.delete("employees", employee.id)
+              .then(getLocationAndEmployees)
+          }}
           {...props}
         />
       )}

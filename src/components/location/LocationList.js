@@ -29,9 +29,9 @@ const LocationList = props => {
           <LocationCard 
             key={location.id} 
             locationObject={location}
-            deleteLocation={() => {
+            handleDelete={() => {
               ApiManager.delete("locations", location.id)
-                .then(getLocations)
+                .then(getLocations);
             }}
             {...props}
           />

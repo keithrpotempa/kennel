@@ -15,11 +15,6 @@ const EmployeeList = props => {
     getEmployees();
   }, []);
 
-  const deleteEmployee = id => {
-    ApiManager.delete("employees", id)
-      .then(getEmployees);
-  };
-
   return(
     <>
       <section className="section-content">
@@ -34,8 +29,11 @@ const EmployeeList = props => {
           <EmployeeCard 
             key={employee.id} 
             employee={employee}
-            deleteEmployee={deleteEmployee} 
             employeeLocation={employee.location}
+            handleDelete={() => {
+              ApiManager.delete("employees", employee.id, props)
+                .then(getEmployees)}
+            }
             {...props}
           />
         )}

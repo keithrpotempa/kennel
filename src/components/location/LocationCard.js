@@ -12,7 +12,9 @@ const LocationCard = props => {
             </span>
         </h3>
         <p>Address: {props.locationObject.address}</p>
-        <button onClick={() => props.deleteLocation(props.locationObject.id)}>Close Location</button>
+        <button onClick={props.handleDelete}>
+          Close Location
+        </button>
         <Link to={`/locations/${props.locationObject.id}/details`}>
           <button>Details</button>
         </Link>

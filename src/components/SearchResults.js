@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ApiManager from "../modules/ApiManager";
 import AnimalCard from "../components/animal/AnimalCard"
-import {handleDeleteAnimal, handleDeleteEmployee} from "../modules/helpers"
 import EmployeeCard from "../components/employee/EmployeeCard";
 import LocationCard from "../components/location/LocationCard";
 import OwnerCard from "../components/owner/OwnerCard";
@@ -21,7 +20,7 @@ const SearchResults = props => {
 
   useEffect(() => {
     getAllResults(props.search);
-  }, [props.match.params]);
+  }, [props.match.params, props.search]);
   //props.match.params added here so that if the url changes
   //even when the user is on the search page
   //it re-renders
@@ -39,9 +38,9 @@ const SearchResults = props => {
                 <AnimalCard
                   key={animal.id}
                   animal={animal}
-                  deleteAnimal={() => {
-                    handleDeleteAnimal(animal.id)
-                      .then(getAllResults);
+                  handleDelete={() => {
+                    ApiManager.delete("animals", animal.id)
+                      .then(getAllResults(props.search))
                   }} 
                   {...props}
                 />          
@@ -59,9 +58,9 @@ const SearchResults = props => {
                   key={employee.id} 
                   employee={employee}
                   employeeLocation={employee.location}
-                  deleteEmployee={() => {
-                    handleDeleteEmployee(employee.id)
-                      .then(getAllResults);
+                  handleDelete={() => {
+                    ApiManager.delete("employees", employee.id)
+                      .then(getAllResults(props.search))
                   }} 
                   {...props}
                 />
@@ -78,8 +77,9 @@ const SearchResults = props => {
                 <LocationCard 
                   key={location.id} 
                   locationObject={location}
-                  deleteLocation={() => {
-                    //FIXME: this function hasn't been lifted
+                  handleDelete={() => {
+                    ApiManager.delete("locations", location.id)
+                      .then(getAllResults(props.search))
                   }} 
                   {...props}
                 />
@@ -96,8 +96,9 @@ const SearchResults = props => {
                 <OwnerCard 
                   key={owner.id} 
                   owner={owner}
-                  deleteOwner={() => {
-                    //FIXME: this function hasn't been lifted
+                  handleDelete={() => {
+                    ApiManager.delete("owners", owner.id)
+                      .then(getAllResults(props.search))
                   }} 
                   {...props}
                 />

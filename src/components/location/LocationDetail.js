@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import './LocationDetail.css'
 
+// THIS IS DEPRECATED NOW THAT LocationWithEmployees EXISTS
+
 const LocationDetail = props => {
   const [location, setLocation] = useState({ name: "", address: "" });
   const [isLoading, setIsLoading] = useState(true);
