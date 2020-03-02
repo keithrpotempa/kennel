@@ -6,7 +6,7 @@ const OwnerDetail = props => {
   const [owner, setOwner] = useState({ name: "", phoneNumber: "" });
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  const getOwner = () => {
     ApiManager.get("owners", props.ownerId)
       .then(owner => {
         setOwner({
@@ -15,21 +15,21 @@ const OwnerDetail = props => {
         });
         setIsLoading(false);
       });
-  }, [props.ownerId]);
+  }
 
-  const handleDelete = () => {
-    setIsLoading(true);
-    ApiManager.delete("owners", props.ownerId).then(() =>
-      props.history.push("/owners")
-    );
-  };
+  useEffect(() => {
+    getOwner();
+  }, [props.ownerId]);
 
   return (
     <div className="card">
       <div className="card-content">
         <h3>Name: <span style={{ color: 'darkslategrey' }}>{owner.name}</span></h3>
         <p>Phone Number: {owner.phoneNumber}</p>
-        <button type="button" disabled={isLoading} onClick={handleDelete}>
+        <button type="button" disabled={isLoading} onClick={() => {
+          ApiManager.delete("owners", props.ownerId)
+            .then(props.history.push("/owners"))
+        }}>
           Remove Owner
         </button>
       </div>

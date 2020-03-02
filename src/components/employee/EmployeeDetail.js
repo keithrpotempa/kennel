@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import './EmployeeDetail.css'
 
+// THIS IS DEPRECATED(?) NOW THAT EMPLOYEEWITHANIMALS EXISTS
 const EmployeeDetail = props => {
   const [employee, setEmployee] = useState({ name: "", role: "" });
   const [isLoading, setIsLoading] = useState({isLoading: true})

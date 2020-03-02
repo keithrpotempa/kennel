@@ -6,13 +6,16 @@ const EmployeeWithAnimals = props => {
   const [employee, setEmployee] = useState({});
   const [animals, setAnimals] = useState([]);
 
+  const getEmployeesWithAnimals = () => {
+    ApiManager.getOneXWithManyY("employees", "animals", props.match.params.employeeId)
+    .then(APIResult => {
+      setEmployee(APIResult);
+      setAnimals(APIResult.animals);
+    });
+  }
+
   useEffect(() => {
-    //got here now make call to get employee with animal
-    ApiManager.getAllXWithY("employees", "animals", props.match.params.employeeId)
-      .then(APIResult => {
-        setEmployee(APIResult);
-        setAnimals(APIResult.animals);
-      });
+    getEmployeesWithAnimals();
   }, []);
 
   return (
@@ -23,6 +26,10 @@ const EmployeeWithAnimals = props => {
           key={animal.id}
           animal={animal}
           employee={employee}
+          handleDelete={() => {
+            ApiManager.delete("animals", animal.id)
+              .then(getEmployeesWithAnimals);
+          }}
           {...props}
         />
       )}

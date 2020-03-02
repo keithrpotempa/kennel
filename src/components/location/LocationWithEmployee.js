@@ -6,12 +6,16 @@ const LocationWithEmployees = props => {
   const [location, setLocation] = useState({});
   const [employees, setEmployees] = useState([]);
 
-  useEffect(() => {
-    ApiManager.getAllXWithY("locations", "employees", props.match.params.locationId)
+  const getLocationAndEmployees = () => {
+    ApiManager.getOneXWithManyY("locations", "employees", props.match.params.locationId)
       .then(APIResult => {
         setLocation(APIResult);
         setEmployees(APIResult.employees);
       });
+  } 
+
+  useEffect(() => {
+    getLocationAndEmployees();
   }, []);
 
   return (
@@ -21,7 +25,11 @@ const LocationWithEmployees = props => {
         <EmployeeCard
           key={employee.id}
           employee={employee}
-          location={location}
+          employeeLocation={location}
+          handleDelete={() => {
+            ApiManager.delete("employees", employee.id)
+              .then(getLocationAndEmployees)
+          }}
           {...props}
         />
       )}

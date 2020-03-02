@@ -6,7 +6,7 @@ const EmployeeList = props => {
   const [employees, setEmployees] = useState([]);
 
   const getEmployees = () => {
-    return ApiManager.getAll("employees").then(employeesFromAPI => {
+    return ApiManager.getAllXWithTheirOneY("employees", "location").then(employeesFromAPI => {
       setEmployees(employeesFromAPI)
     });
   };
@@ -14,11 +14,6 @@ const EmployeeList = props => {
   useEffect(() => {
     getEmployees();
   }, []);
-
-  const deleteEmployee = id => {
-    ApiManager.delete("employees", id)
-      .then(() => ApiManager.getAll().then(setEmployees));
-  };
 
   return(
     <>
@@ -34,7 +29,11 @@ const EmployeeList = props => {
           <EmployeeCard 
             key={employee.id} 
             employee={employee}
-            deleteEmployee={deleteEmployee} 
+            employeeLocation={employee.location}
+            handleDelete={() => {
+              ApiManager.delete("employees", employee.id, props)
+                .then(getEmployees)}
+            }
             {...props}
           />
         )}

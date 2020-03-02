@@ -1,8 +1,5 @@
 import React from "react";
-import { handleDeleteEmployee } from '../../modules/helpers'
 import "./Employee.css";
-
-// TODO: Display the Employee's Location Name, not ID
 
 const EmployeeCard = props => {
   return (
@@ -12,10 +9,10 @@ const EmployeeCard = props => {
           Name: <span className="card-employeename">{props.employee.name}</span>
         </h3>
         <p>Role: {props.employee.role}</p>
-        <p>Location: {props.employee.locationId}</p>
+        <p>Location: {props.employeeLocation.name}</p>
         <button
           type="button"
-          onClick={() => handleDeleteEmployee(props)}
+          onClick={props.handleDelete}
         >
           Fire Employee
         </button>

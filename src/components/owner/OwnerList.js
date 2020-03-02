@@ -15,11 +15,6 @@ const OwnerList = props => {
     getOwners();
   }, []);
 
-  const deleteOwner = id => {
-    ApiManager.delete("owners", id)
-      .then(() => ApiManager.getAll("owners").then(setOwners));
-  };
-
   return (
     <>
       <section className="section-content">
@@ -34,7 +29,10 @@ const OwnerList = props => {
           <OwnerCard 
             key={owner.id} 
             owner={owner}
-            deleteOwner={deleteOwner}
+            handleDelete={() => {
+              ApiManager.delete("owners", owner.id)
+                .then(getOwners);
+            }}
             {...props} 
           />)}
       </div>
