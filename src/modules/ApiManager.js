@@ -23,6 +23,10 @@ export default {
     return fetch(`${remoteURL}/${dataType}?q=${query}`)
       .then(results => results.json())
   },
+  searchXWithOneY(dataTypeX, dataTypeY, query){
+    return fetch(`${remoteURL}/${dataTypeX}?q=${query}&_expand=${dataTypeY}`)
+      .then(results => results.json())
+  },
   delete(dataType, id) {
     return fetch(`${remoteURL}/${dataType}/${id}`, {
       method: "DELETE"

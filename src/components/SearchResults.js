@@ -6,18 +6,15 @@ import EmployeeCard from "../components/employee/EmployeeCard";
 import LocationCard from "../components/location/LocationCard";
 import OwnerCard from "../components/owner/OwnerCard";
 
-// FIXME: Search currently doesn't have access to the the embed/expanded
-// properties of these API searches...
-
 const SearchResults = props => {
-  const [employees, setEmployees] = useState([]) 
-  const [animals, setAnimals] = useState([]) 
-  const [locations, setLocations] = useState([]) 
-  const [owners, setOwners] = useState([]) 
+  const [employees, setEmployees] = useState([]);
+  const [animals, setAnimals] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [owners, setOwners] = useState([]);
 
   const getAllResults = (query) => {
-    ApiManager.search("animals", query).then(results => setAnimals(results));
-    ApiManager.search("employees", query).then(results => setEmployees(results));
+    ApiManager.searchXWithOneY("animals", "employee", query).then(results => setAnimals(results));
+    ApiManager.searchXWithOneY("employees", "location", query).then(results => setEmployees(results));
     ApiManager.search("locations", query).then(results => setLocations(results));
     ApiManager.search("owners", query).then(results => setOwners(results));
   }
@@ -61,8 +58,7 @@ const SearchResults = props => {
                 <EmployeeCard 
                   key={employee.id} 
                   employee={employee}
-                  // FIXME: using employee.locationId is not quite right...
-                  employeeLocation={employee.locationId}
+                  employeeLocation={employee.location}
                   deleteEmployee={() => {
                     handleDeleteEmployee(employee.id)
                       .then(getAllResults);
