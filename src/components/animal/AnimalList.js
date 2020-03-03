@@ -22,7 +22,6 @@ const AnimalList = props => {
     return ApiManager.getAllXWithTheirOneY("animalowners", "owner")
       .then(results => {
         setAnimalOwners(results)
-        console.log(results)
       })
   }
 
