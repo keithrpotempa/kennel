@@ -6,13 +6,15 @@ import LocationCard from "../components/location/LocationCard";
 import OwnerCard from "../components/owner/OwnerCard";
 
 const SearchResults = props => {
-  const [employees, setEmployees] = useState([]);
   const [animals, setAnimals] = useState([]);
+  const [animalOwners, setAnimalOwners] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [locations, setLocations] = useState([]);
   const [owners, setOwners] = useState([]);
 
   const getAllResults = (query) => {
     ApiManager.searchXWithOneY("animals", "employee", query).then(results => setAnimals(results));
+    ApiManager.getAllXWithTheirOneY("animalowners", "owner").then(results => setAnimalOwners(results));
     ApiManager.searchXWithOneY("employees", "location", query).then(results => setEmployees(results));
     ApiManager.search("locations", query).then(results => setLocations(results));
     ApiManager.search("owners", query).then(results => setOwners(results));
@@ -38,6 +40,7 @@ const SearchResults = props => {
                 <AnimalCard
                   key={animal.id}
                   animal={animal}
+                  animalOwners={animalOwners.filter(animalOwner => animalOwner.animalId === animal.id)}
                   handleDelete={() => {
                     ApiManager.delete("animals", animal.id)
                       .then(getAllResults(props.search))
