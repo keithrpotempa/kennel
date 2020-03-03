@@ -1,23 +1,34 @@
 import React, { useState, useEffect } from 'react';
-//import the components we will need
 import AnimalCard from './AnimalCard';
 import ApiManager from '../../modules/ApiManager';
 
 const AnimalList = props => {
-  // The initial state is an empty array
   const [animals, setAnimals] = useState([]);
+  const [animalOwners, setAnimalOwners] = useState([]);
 
   const getAnimals = () => {
-    // After the data comes back from the API, we
-    //  use the setAnimals function to update state
     return ApiManager.getAllXWithTheirOneY("animals", "employee").then(animalsFromAPI => {
       setAnimals(animalsFromAPI)
     });
   };
 
-  // got the animals from the API on the component's first render
+  /* animalOwners Challenge:
+    After all the animals are put in state, 
+    animalOwners is fetched, with Owners expanded 
+    (so we can have their names), then set in state. 
+  */
+
+  const getAnimalOwners = () => {
+    return ApiManager.getAllXWithTheirOneY("animalowners", "owner")
+      .then(results => {
+        setAnimalOwners(results)
+        console.log(results)
+      })
+  }
+
   useEffect(() => {
     getAnimals();
+    getAnimalOwners();
   }, []);
 
   return (
@@ -34,6 +45,8 @@ const AnimalList = props => {
           <AnimalCard
             key={animal.id}
             animal={animal}
+            // animalOwners are filtered for matching animalIds 
+            animalOwners={animalOwners.filter(animalOwner => animalOwner.animalId === animal.id)}
             handleDelete={() => {
               ApiManager.delete("animals", animal.id)
                 .then(getAnimals);

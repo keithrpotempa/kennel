@@ -23,6 +23,12 @@ const AnimalCard = props => {
         </h3>
         <p>Breed: {props.animal.breed}</p>
         <p>Employee: {employeeJSX}</p>
+        <p>Owner(s):</p> 
+        <ul>
+          {props.animalOwners.map(animalOwner => 
+            <li> {animalOwner.owner.name} </li>
+          )}
+        </ul>
         <button
           type="button"
           onClick={props.handleDelete}
