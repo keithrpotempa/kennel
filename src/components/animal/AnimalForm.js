@@ -13,6 +13,8 @@ const AnimalForm = props => {
               onChange={props.handleFieldChange}
               id="name"
               placeholder="Animal name"
+              // TRYING THIS OUT
+              value={props.animal.name}
             />
             <label htmlFor="animalName">Name</label>
             <input
@@ -21,12 +23,15 @@ const AnimalForm = props => {
               onChange={props.handleFieldChange}
               id="breed"
               placeholder="Breed"
+              // TRYING THIS OUT
+              value={props.animal.breed}
             />
             <label htmlFor="breed">Breed</label>
           <select
               className="form-control"
               required
               id="employeeId"
+              value={props.animal.employeeId}
               onChange={props.handleFieldChange}
             >
               {props.employees.map(employee => (
