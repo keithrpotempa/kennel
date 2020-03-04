@@ -12,7 +12,6 @@ import AnimalForm from "./animal/AnimalForm";
 import OwnerList from "./owner/OwnerList";
 import OwnerDetail from "./owner/OwnerDetail";
 import OwnerForm from "./owner/OwnerForm";
-import OwnerEditForm from "./owner/OwnerEditForm";
 
 import EmployeeList from "./employee/EmployeeList";
 import EmployeeDetail from "./employee/EmployeeDetail";
@@ -207,7 +206,7 @@ const ApplicationViews = props => {
         path="/owners/:ownerId(\d+)/edit"
         render={props => {
           if (hasUser) {
-            return <OwnerEditForm {...props} />;
+            return <OwnerForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }
