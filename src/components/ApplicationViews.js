@@ -7,7 +7,7 @@ import SearchResults from "./SearchResults";
 
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
-import AnimalForm from "./animal/AnimalForm";
+import AnimalNew from "./animal/AnimalNew";
 import AnimalEditForm from "./animal/AnimalEditForm";
 
 import OwnerList from "./owner/OwnerList";
@@ -86,7 +86,7 @@ const ApplicationViews = props => {
         path="/animals/new"
         render={props => {
           if (hasUser) {
-            return <AnimalForm {...props} />;
+            return <AnimalNew {...props} />;
           } else {
             return <Redirect to="/login" />;
           }

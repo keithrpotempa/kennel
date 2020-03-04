@@ -1,39 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ApiManager from '../../modules/ApiManager';
+import React from 'react';
 import './AnimalForm.css'
 
 const AnimalForm = props => {
-  const [animal, setAnimal] = useState({ name: "", breed: "" });
-  const [employees, setEmployees] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const getEmployees = () => {
-    return ApiManager.getAll("employees").then(employees => {
-      setEmployees(employees);
-    })
-  } 
-
-  const handleFieldChange = evt => {
-    const stateToChange = { ...animal };
-    stateToChange[evt.target.id] = evt.target.value;
-    setAnimal(stateToChange);
-  };
-
-  const constructNewAnimal = evt => {
-    evt.preventDefault();
-    if (animal.Name === "" || animal.breed === "") {
-      window.alert("Please input an animal name and breed");
-    } else {
-      setIsLoading(true);
-      ApiManager.post("animals", animal)
-        .then(() => props.history.push("/animals"));
-    }
-  };
-
-  useEffect(() => {
-    getEmployees();
-  }, [])
-
   return (
     <>
       <form>
@@ -42,7 +10,7 @@ const AnimalForm = props => {
             <input
               type="text"
               required
-              onChange={handleFieldChange}
+              onChange={props.handleFieldChange}
               id="name"
               placeholder="Animal name"
             />
@@ -50,7 +18,7 @@ const AnimalForm = props => {
             <input
               type="text"
               required
-              onChange={handleFieldChange}
+              onChange={props.handleFieldChange}
               id="breed"
               placeholder="Breed"
             />
@@ -59,9 +27,9 @@ const AnimalForm = props => {
               className="form-control"
               required
               id="employeeId"
-              onChange={handleFieldChange}
+              onChange={props.handleFieldChange}
             >
-              {employees.map(employee => (
+              {props.employees.map(employee => (
                 <option key={employee.id} value={employee.id}>
                   {employee.name}
                 </option>
@@ -72,8 +40,11 @@ const AnimalForm = props => {
           <div className="alignRight">
             <button
               type="button"
-              disabled={isLoading}
-              onClick={constructNewAnimal}
+              disabled={props.isLoading}
+              onClick={(evt) => {
+                const constructedAnimal = props.constructAnimal(evt);
+                props.saveAnimal(constructedAnimal)
+              }}
             >Submit</button>
           </div>
         </fieldset>
