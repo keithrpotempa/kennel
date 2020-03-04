@@ -2,10 +2,17 @@ import React, { useState, useEffect } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import './EmployeeForm.css'
 
+// EmployeeForm serves as both new and edit forms
+
 const EmployeeForm = props => {
-  const [employee, setEmployee] = useState({ name: "", role: "" });
+  const [employee, setEmployee] = useState({ name: "", role: "", locationId: ""});
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  
+  const getLocations = () => {
+    return ApiManager.getAll("locations")
+      .then(locations => setLocations(locations));
+  }
 
   const handleFieldChange = evt => {
     const stateToChange = { ...employee };
@@ -13,30 +20,47 @@ const EmployeeForm = props => {
     setEmployee(stateToChange);
   };
 
-  const getLocations = () => {
-    return ApiManager.getAll("locations")
-      .then(locations => {
-        setLocations(locations);
-      });
-  }
-
-  /*  Local method for validation, set loadingStatus, create animal      
-      object, invoke the AnimalManager post method, and redirect to the full animal list
-  */
-  const constructNewEmployee = evt => {
+  const constructEmployee = evt => {
     evt.preventDefault();
     if (employee.name === "" || employee.role === "") {
       window.alert("Please input an employee name and role");
     } else {
       setIsLoading(true);
-      // Create the animal and redirect user to animal list
-      ApiManager.post("employees", employee)
-        .then(() => props.history.push("/employees"));
+      const employeeToSave = {
+        name: employee.name,
+        role: employee.role,
+        locationId: parseInt(employee.locationId)
+      }
+      // If this is an edit, we also need the id
+      if (props.match.params.employeeId) {
+        employeeToSave.id = props.match.params.employeeId;
+      }
+      return employeeToSave;
     }
   };
 
+  const saveEmployee = employee => {
+    // If the object has an id, it is an edit,
+    // so we put/update
+    if (employee.hasOwnProperty('id')) {
+      ApiManager.update("employees", employee)
+        .then(props.history.push("/employees"))
+    // Otherwise, it is new, so we post
+    } else {
+      ApiManager.post("employees", employee)
+        .then(props.history.push("/employees"))
+    }
+
+  }
+
   useEffect(()=>{
     getLocations();
+    // If this is an edit, we need to get the entry-to-edit's details
+    if (props.match.params.employeeId) {
+      ApiManager.get("employees", props.match.params.employeeId)
+        .then(employee => setEmployee(employee))
+      setIsLoading(false);
+    }
   }, [])
 
   return (
@@ -50,6 +74,7 @@ const EmployeeForm = props => {
               onChange={handleFieldChange}
               id="name"
               placeholder="Employee name"
+              value={employee.name}
             />
             <label htmlFor="employeeName">Name</label>
             <input
@@ -58,12 +83,14 @@ const EmployeeForm = props => {
               onChange={handleFieldChange}
               id="role"
               placeholder="Role"
+              value={employee.role}
             />
             <label htmlFor="role">Role</label>
             <select
               className="form-control"
               required
               id="locationId"
+              value={employee.locationId}
               onChange={handleFieldChange}
             >
               {locations.map(location => (
@@ -78,7 +105,10 @@ const EmployeeForm = props => {
             <button
               type="button"
               disabled={isLoading}
-              onClick={constructNewEmployee}
+              onClick={(evt) => {
+                const constructedEmployee = constructEmployee(evt);
+                saveEmployee(constructedEmployee);
+              }}
             >Submit</button>
           </div>
         </fieldset>

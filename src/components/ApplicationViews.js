@@ -257,7 +257,7 @@ const ApplicationViews = props => {
         path="/employees/:employeeId(\d+)/edit"
         render={props => {
           if (hasUser) {
-            return <EmployeeEditForm {...props} />;
+            return <EmployeeForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }

@@ -32,24 +32,22 @@ const AnimalForm = props => {
         breed: animal.breed,
         employeeId: parseInt(animal.employeeId)
       }
-      
       // If this is an edit, we also need the id
       if (props.match.params.animalId) {
         animalToSave.id = props.match.params.animalId;
       }
-      console.log(animalToSave)
-      return animalToSave
+      return animalToSave;
     }
   };
 
   const saveAnimal = (animal) => {
-    // If the animal object has an id, it is an edit,
+    // If the object has an id, it is an edit,
     // so we put/update
     if (animal.hasOwnProperty('id')) {
       ApiManager.update("animals", animal).then(() =>
           props.history.push("/animals")
         );
-    // Otherwise, it is a new animal, so we post
+    // Otherwise, it is new, so we post
     } else {
       ApiManager.post("animals", animal).then(() => 
         props.history.push("/animals")
@@ -59,7 +57,7 @@ const AnimalForm = props => {
 
   useEffect(() => {
     getEmployees();
-    // If this is an edit, we need to get the animal-to-edit's details
+    // If this is an edit, we need to get the entry-to-edit's details
     if (props.match.params.animalId) {
       ApiManager.get("animals", props.match.params.animalId)
         .then(animal => setAnimal(animal))
@@ -112,7 +110,7 @@ const AnimalForm = props => {
               disabled={isLoading}
               onClick={(evt) => {
                 const constructedAnimal = constructAnimal(evt);
-                saveAnimal(constructedAnimal)
+                saveAnimal(constructedAnimal);
               }}
             >Submit</button>
           </div>
