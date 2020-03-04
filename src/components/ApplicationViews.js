@@ -8,23 +8,19 @@ import SearchResults from "./SearchResults";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
-import AnimalEditForm from "./animal/AnimalEditForm";
 
 import OwnerList from "./owner/OwnerList";
 import OwnerDetail from "./owner/OwnerDetail";
 import OwnerForm from "./owner/OwnerForm";
-import OwnerEditForm from "./owner/OwnerEditForm";
 
 import EmployeeList from "./employee/EmployeeList";
 import EmployeeDetail from "./employee/EmployeeDetail";
 import EmployeeForm from "./employee/EmployeeForm";
-import EmployeeEditForm from "./employee/EmployeeEditForm";
 import EmployeeWithAnimals from "./employee/EmployeeWithAnimals";
 
 import LocationList from "./location/LocationList";
 import LocationDetail from "./location/LocationDetail";
 import LocationForm from "./location/LocationForm";
-import LocationEditForm from "./location/LocationEditForm";
 import LocationWithEmployees from "./location/LocationWithEmployee";
 
 const ApplicationViews = props => {
@@ -108,7 +104,7 @@ const ApplicationViews = props => {
         path="/animals/:animalId(\d+)/edit"
         render={props => {
           if (hasUser) {
-            return <AnimalEditForm {...props} />;
+            return <AnimalForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }
@@ -156,7 +152,7 @@ const ApplicationViews = props => {
         path="/locations/:locationId(\d+)/edit"
         render={props => {
           if (hasUser) {
-            return <LocationEditForm {...props} />;
+            return <LocationForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }
@@ -210,7 +206,7 @@ const ApplicationViews = props => {
         path="/owners/:ownerId(\d+)/edit"
         render={props => {
           if (hasUser) {
-            return <OwnerEditForm {...props} />;
+            return <OwnerForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }
@@ -258,7 +254,7 @@ const ApplicationViews = props => {
         path="/employees/:employeeId(\d+)/edit"
         render={props => {
           if (hasUser) {
-            return <EmployeeEditForm {...props} />;
+            return <EmployeeForm {...props} />;
           } else {
             return <Redirect to="/login" />;
           }
