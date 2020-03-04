@@ -1,7 +1,73 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import ApiManager from '../../modules/ApiManager'
 import './AnimalForm.css'
 
+// AnimalForm serves as both new and edit forms
+
 const AnimalForm = props => {
+  const [animal, setAnimal] = useState({ name: "", breed: "", employeeId: 0 });
+  const [employees, setEmployees] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getEmployees = () => {
+    return ApiManager.getAll("employees").then(employeesFromAPI => {
+      setEmployees(employeesFromAPI)
+    });
+  };
+
+  const handleFieldChange = evt => {
+    const stateToChange = { ...animal };
+    stateToChange[evt.target.id] = evt.target.value;
+    setAnimal(stateToChange);
+  };
+
+  const constructAnimal = evt => {
+    evt.preventDefault();
+    if (animal.name === "" || animal.breed === "") {
+      window.alert("Please input an animal name and breed");
+    } else {
+      setIsLoading(true);
+      const animalToSave = {
+        name: animal.name,
+        breed: animal.breed,
+        employeeId: parseInt(animal.employeeId)
+      }
+      
+      // If this is an edit, we also need the id
+      if (props.match.params.animalId) {
+        animalToSave.id = props.match.params.animalId;
+      }
+      console.log(animalToSave)
+      return animalToSave
+    }
+  };
+
+  const saveAnimal = (animal) => {
+    // If the animal object has an id, it is an edit,
+    // so we put/update
+    if (animal.hasOwnProperty('id')) {
+      ApiManager.update("animals", animal).then(() =>
+          props.history.push("/animals")
+        );
+    // Otherwise, it is a new animal, so we post
+    } else {
+      ApiManager.post("animals", animal).then(() => 
+        props.history.push("/animals")
+      );
+    }
+  }
+
+  useEffect(() => {
+    getEmployees();
+    // If this is an edit, we need to get the animal-to-edit's details
+    if (props.match.params.animalId) {
+      ApiManager.get("animals", props.match.params.animalId)
+        .then(animal => setAnimal(animal))
+      setIsLoading(false);
+    }
+  }, []);
+
+
   return (
     <>
       <form>
@@ -10,31 +76,29 @@ const AnimalForm = props => {
             <input
               type="text"
               required
-              onChange={props.handleFieldChange}
+              onChange={handleFieldChange}
               id="name"
               placeholder="Animal name"
-              // TRYING THIS OUT
-              value={props.animal.name}
+              value={animal.name}
             />
             <label htmlFor="animalName">Name</label>
             <input
               type="text"
               required
-              onChange={props.handleFieldChange}
+              onChange={handleFieldChange}
               id="breed"
               placeholder="Breed"
-              // TRYING THIS OUT
-              value={props.animal.breed}
+              value={animal.breed}
             />
             <label htmlFor="breed">Breed</label>
           <select
               className="form-control"
               required
               id="employeeId"
-              value={props.animal.employeeId}
-              onChange={props.handleFieldChange}
+              value={animal.employeeId}
+              onChange={handleFieldChange}
             >
-              {props.employees.map(employee => (
+              {employees.map(employee => (
                 <option key={employee.id} value={employee.id}>
                   {employee.name}
                 </option>
@@ -45,10 +109,10 @@ const AnimalForm = props => {
           <div className="alignRight">
             <button
               type="button"
-              disabled={props.isLoading}
+              disabled={isLoading}
               onClick={(evt) => {
-                const constructedAnimal = props.constructAnimal(evt);
-                props.saveAnimal(constructedAnimal)
+                const constructedAnimal = constructAnimal(evt);
+                saveAnimal(constructedAnimal)
               }}
             >Submit</button>
           </div>
